@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_home"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.imprarce.android.frencheducation.ui.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home"
+        app:popUpTo="@+id/nav_home"
+        app:popUpToInclusive="true"/>
+    <fragment
+        android:id="@+id/IELTSFragment"
+        android:name="com.imprarce.android.frencheducation.ui.home.IELTSFragment"
+        android:label="fragment_i_e_l_t_s"
+        tools:layout="@layout/fragment_i_e_l_t_s" />
+    <fragment
+        android:id="@+id/dictionaryFragment"
+        android:name="com.imprarce.android.frencheducation.ui.home.DictionaryFragment"
+        android:label="fragment_dictionary"
+        tools:layout="@layout/fragment_dictionary" />
+    <fragment
+        android:id="@+id/videoMenuFragment"
+        android:name="com.imprarce.android.frencheducation.ui.home.VideoMenuFragment"
+        android:label="fragment_video_menu"
+        tools:layout="@layout/fragment_video_menu" />
+    <fragment
+        android:id="@+id/communityFragment"
+        android:name="com.imprarce.android.frencheducation.ui.home.CommunityFragment"
+        android:label="fragment_community"
+        tools:layout="@layout/fragment_community" />
+
+    <include app:graph="@navigation/nav_greeting"/>
+</navigation>

@@ -1,3 +1,39 @@
 <resources>
     <string name="app_name">FrenchEducation</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="home">Дом</string>
+    <string name="community">Сообщество</string>
+    <string name="video">Видео</string>
+    <string name="ielts">IELTS тесты</string>
+    <string name="dictionary">Словарь</string>
+    <string name="welcome_text">Добро пожаловать в Learning French</string>
+    <string name="greeting_about_prog_text">Это программа для изучения французского языка. Если вы хотите подготовиться IELTS или улучшить свои знания, то это отличное решение для вас</string>
+    <string name="enter">Войти</string>
+    <string name="registration">Зарегистрироваться</string>
+    <string name="your_email">Ваш электронный адрес</string>
+    <string name="your_password">Ваш пароль</string>
+    <string name="forget_the_password">Забыли пароль?</string>
+    <string name="with_google">Через Google</string>
+    <string name="or">Или</string>
+    <string name="password_6_symbols">Пароль (минимум 6 символов)</string>
+    <string name="confirm_password">Подтвердите пароль</string>
+    <string name="plug">Заглушка</string>
+    <string name="a1">A1</string>
+    <string name="example_text_for_lesson">Общение с людьми. Уроки для начинающих.</string>
+    <string name="_100">100</string>
+    <string name="description">Описание</string>
+    <string name="level">Уровень</string>
+    <string name="progress">Прогресс</string>
+    <string name="title">Тема</string>
+    <string name="rating">Рейтинг</string>
+    <string name="views">Просмотры</string>
+    <string name="example_text_video">Природа Марселя</string>
+    <string name="example_description_video">В видео рассказывается о самых прекрасных местах Марселя, в которых стоит побывать</string>
+    <string name="example_text_ielts">В данном блоке есть весь материал для подготовки к А1: видео-интервью по говорению, письменная часть, аудирование и письмо. Также есть полезные материалы</string>
+    <string name="example_title_ielts">A1 IELTS</string>
+    <string name="sort_french">По бук. (ФР)</string>
+    <string name="sort_rus">По бук. (Рус)</string>
+    <string name="sing">Петь</string>
+    <string name="chanter">Chanter</string>
 </resources>

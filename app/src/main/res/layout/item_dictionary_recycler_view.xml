@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_marginTop="@dimen/value_16_dp"
+    style="@style/RecyclerViewBackgroundStyle">
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/a1"
+        android:gravity="center_horizontal"
+        android:layout_marginStart="8dp"
+        android:padding="@dimen/value_4_dp"/>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/chanter"
+        android:textAllCaps="true"
+        android:gravity="center_horizontal"
+        android:padding="@dimen/value_4_dp"/>
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/sing"
+        android:textAllCaps="true"
+        android:gravity="center_horizontal"
+        android:padding="@dimen/value_4_dp"/>
+
+    <ImageView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:src="@drawable/icon_video"
+        android:padding="@dimen/value_4_dp"/>
+
+    <CheckBox
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:padding="@dimen/value_4_dp"/>
+</LinearLayout>
