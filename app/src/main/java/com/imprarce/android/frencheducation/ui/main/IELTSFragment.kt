@@ -1,13 +1,11 @@
-package com.imprarce.android.frencheducation.ui.home
+package com.imprarce.android.frencheducation.ui.main
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.imprarce.android.frencheducation.R
-import com.imprarce.android.frencheducation.ui.home.adapters.FilterAdapter
+import com.imprarce.android.frencheducation.ui.main.adapters.FilterAdapter
 
 
 class IELTSFragment : Fragment(R.layout.fragment_i_e_l_t_s) {

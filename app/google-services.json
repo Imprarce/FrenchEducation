@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1041050402180",
+    "project_id": "frencheducation-15544",
+    "storage_bucket": "frencheducation-15544.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1041050402180:android:c99243e5a1e73a92d1b1d1",
+        "android_client_info": {
+          "package_name": "com.imprarce.android.frencheducation"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjsD8TNm4ne_tQEjsmbPqPVO6NgUF1GeI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

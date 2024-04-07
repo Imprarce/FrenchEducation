@@ -7,29 +7,29 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.imprarce.android.frencheducation.ui.home.HomeFragment"
+        android:name="com.imprarce.android.frencheducation.ui.main.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home"
         app:popUpTo="@+id/nav_home"
         app:popUpToInclusive="true"/>
     <fragment
         android:id="@+id/IELTSFragment"
-        android:name="com.imprarce.android.frencheducation.ui.home.IELTSFragment"
+        android:name="com.imprarce.android.frencheducation.ui.main.IELTSFragment"
         android:label="fragment_i_e_l_t_s"
         tools:layout="@layout/fragment_i_e_l_t_s" />
     <fragment
         android:id="@+id/dictionaryFragment"
-        android:name="com.imprarce.android.frencheducation.ui.home.DictionaryFragment"
+        android:name="com.imprarce.android.frencheducation.ui.main.DictionaryFragment"
         android:label="fragment_dictionary"
         tools:layout="@layout/fragment_dictionary" />
     <fragment
         android:id="@+id/videoMenuFragment"
-        android:name="com.imprarce.android.frencheducation.ui.home.VideoMenuFragment"
+        android:name="com.imprarce.android.frencheducation.ui.main.VideoMenuFragment"
         android:label="fragment_video_menu"
         tools:layout="@layout/fragment_video_menu" />
     <fragment
         android:id="@+id/communityFragment"
-        android:name="com.imprarce.android.frencheducation.ui.home.CommunityFragment"
+        android:name="com.imprarce.android.frencheducation.ui.main.CommunityFragment"
         android:label="fragment_community"
         tools:layout="@layout/fragment_community" />
 

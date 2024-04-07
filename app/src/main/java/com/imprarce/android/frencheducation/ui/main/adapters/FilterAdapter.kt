@@ -1,4 +1,4 @@
-package com.imprarce.android.frencheducation.ui.home.adapters
+package com.imprarce.android.frencheducation.ui.main.adapters
 
 import android.view.LayoutInflater
 import android.view.View

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.imprarce.android.frencheducation.ui.greeting_auth_reg.AuthFragment">
+    tools:context="com.imprarce.android.frencheducation.ui.greeting.login.AuthFragment">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guide_line_vertical_right"
@@ -53,8 +53,7 @@
         android:minHeight="@dimen/value_48_dp"
         app:layout_constraintEnd_toStartOf="@id/guide_line_vertical_right"
         app:layout_constraintStart_toStartOf="@id/guide_line_vertical_left"
-        app:layout_constraintTop_toBottomOf="@id/your_email"
-        tools:ignore="SpeakableTextPresentCheck" />
+        app:layout_constraintTop_toBottomOf="@id/your_email" />
 
     <TextView
         android:id="@+id/your_password"

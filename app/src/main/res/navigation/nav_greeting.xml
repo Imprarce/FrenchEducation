@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/greetingFragment"
-        android:name="com.imprarce.android.frencheducation.ui.greeting_auth_reg.GreetingFragment"
+        android:name="com.imprarce.android.frencheducation.ui.greeting.GreetingFragment"
         android:label="fragment_greeting"
         tools:layout="@layout/fragment_greeting" >
         <action
@@ -16,10 +16,13 @@
         <action
             android:id="@+id/action_greetingFragment_to_regFragment"
             app:destination="@id/regFragment" />
+        <action
+            android:id="@+id/action_greetingFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
     </fragment>
     <fragment
         android:id="@+id/authFragment"
-        android:name="com.imprarce.android.frencheducation.ui.greeting_auth_reg.AuthFragment"
+        android:name="com.imprarce.android.frencheducation.ui.greeting.login.AuthFragment"
         android:label="fragment_auth"
         tools:layout="@layout/fragment_auth" >
         <action
@@ -28,7 +31,7 @@
     </fragment>
     <fragment
         android:id="@+id/regFragment"
-        android:name="com.imprarce.android.frencheducation.ui.greeting_auth_reg.RegFragment"
+        android:name="com.imprarce.android.frencheducation.ui.greeting.reg.RegFragment"
         android:label="fragment_reg"
         tools:layout="@layout/fragment_reg" >
         <action

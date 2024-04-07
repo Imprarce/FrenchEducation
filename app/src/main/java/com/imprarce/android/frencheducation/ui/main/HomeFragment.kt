@@ -1,17 +1,20 @@
-package com.imprarce.android.frencheducation.ui.home
+package com.imprarce.android.frencheducation.ui.main
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.imprarce.android.frencheducation.R
 import com.imprarce.android.frencheducation.databinding.FragmentHomeBinding
-import com.imprarce.android.frencheducation.ui.home.adapters.FilterAdapter
+import com.imprarce.android.frencheducation.ui.greeting.GreetingViewModel
+import com.imprarce.android.frencheducation.ui.main.adapters.FilterAdapter
 
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
+    private val viewModel by viewModels<GreetingViewModel>()
+
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private val filterItems = listOf(R.string.title, R.string.level, R.string.progress)
