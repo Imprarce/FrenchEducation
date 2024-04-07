@@ -13,9 +13,10 @@
         android:layout_marginStart="@dimen/value_8_dp"
         android:layout_marginEnd="@dimen/value_8_dp">
 
-        <ImageView
-            android:id="@+id/imageView"
+        <ImageButton
+            android:id="@+id/settingsButton"
             style="@style/ImageViewStyle"
+            android:background="?android:attr/colorPrimary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/icon_settings"
@@ -31,7 +32,7 @@
             style="@style/SearchViewStyle"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/icon_user"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintStart_toEndOf="@+id/settingsButton"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.mikhaellopez.circularimageview.CircularImageView

@@ -36,4 +36,6 @@
     <string name="sort_rus">По бук. (Рус)</string>
     <string name="sing">Петь</string>
     <string name="chanter">Chanter</string>
+    <string name="settings">Настройки</string>
+    <string name="logOut">Выйти</string>
 </resources>

@@ -67,7 +67,7 @@
         android:id="@+id/recycler_view_main"
         android:layout_width="@dimen/value_0_dp"
         android:layout_height="@dimen/value_0_dp"
-        tools:listitem="@layout/item_content_main"
+        tools:listitem="@layout/item_home_recycler_view_main"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guide_line_vertical_right"
         app:layout_constraintStart_toStartOf="@+id/guide_line_vertical_left"

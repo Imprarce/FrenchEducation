@@ -1,0 +1,17 @@
+package com.imprarce.android.frencheducation.data.db.progress.room
+
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.ForeignKey
+import com.imprarce.android.frencheducation.data.db.task.room.TaskDbEntity
+
+@Entity(tableName = "module_tasks",
+    foreignKeys = [
+        ForeignKey(entity = ModuleDbEntity::class, parentColumns = ["id_module"], childColumns = ["id_module"]),
+        ForeignKey(entity = TaskDbEntity::class, parentColumns = ["id_task"], childColumns = ["id_task"])
+    ],
+    primaryKeys = ["id_module", "id_task"])
+data class ModuleTasksDbEntity(
+    @ColumnInfo(name = "id_module") val idModule: Int,
+    @ColumnInfo(name = "id_task") val idTask: Int
+)

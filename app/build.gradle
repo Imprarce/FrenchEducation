@@ -41,7 +41,13 @@ android {
 
 dependencies {
 
-    //Firebase
+    // Room
+    implementation 'androidx.room:room-common:2.6.1'
+    implementation 'androidx.room:room-ktx:2.6.1'
+    kapt 'androidx.room:room-runtime:2.6.1'
+    kapt "androidx.room:room-compiler:2.6.1"
+
+    // Firebase
     implementation(platform("com.google.firebase:firebase-bom:32.8.0"))
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-auth")

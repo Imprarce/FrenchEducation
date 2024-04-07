@@ -11,7 +11,8 @@
         android:label="fragment_home"
         tools:layout="@layout/fragment_home"
         app:popUpTo="@+id/nav_home"
-        app:popUpToInclusive="true"/>
+        app:popUpToInclusive="true">
+    </fragment>
     <fragment
         android:id="@+id/IELTSFragment"
         android:name="com.imprarce.android.frencheducation.ui.main.IELTSFragment"
@@ -32,6 +33,12 @@
         android:name="com.imprarce.android.frencheducation.ui.main.CommunityFragment"
         android:label="fragment_community"
         tools:layout="@layout/fragment_community" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.imprarce.android.frencheducation.ui.main.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" >
+    </fragment>
 
-    <include app:graph="@navigation/nav_greeting"/>
+
 </navigation>
