@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_detail"
+    app:startDestination="@id/detailModuleFragment">
+
+    <fragment
+        android:id="@+id/detailModuleFragment"
+        android:name="com.imprarce.android.frencheducation.ui.main.detailhome.DetailModuleFragment"
+        android:label="fragment_detail_module"
+        tools:layout="@layout/fragment_detail_module" >
+        <action
+            android:id="@+id/action_detailModuleFragment_to_detailTaskFragment"
+            app:destination="@id/detailTaskFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailTaskFragment"
+        android:name="com.imprarce.android.frencheducation.ui.main.detailhome.DetailTaskFragment"
+        android:label="fragment_detail_task"
+        tools:layout="@layout/fragment_detail_task" />
+</navigation>

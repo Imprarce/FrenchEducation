@@ -12,6 +12,6 @@ import com.imprarce.android.frencheducation.data.db.task.room.TaskDbEntity
     ],
     primaryKeys = ["id_module", "id_task"])
 data class ModuleTasksDbEntity(
-    @ColumnInfo(name = "id_module") val idModule: Int,
-    @ColumnInfo(name = "id_task") val idTask: Int
+    @ColumnInfo(name = "id_module") val id_module: Int,
+    @ColumnInfo(name = "id_task") val id_task: Int
 )

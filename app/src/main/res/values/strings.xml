@@ -37,5 +37,14 @@
     <string name="sing">Петь</string>
     <string name="chanter">Chanter</string>
     <string name="settings">Настройки</string>
+    <string name="module_name">Название модуля</string>
     <string name="logOut">Выйти</string>
+    <string name="account">Аккаунт</string>
+    <string name="name">Имя</string>
+    <string name="photo">Фотография</string>
+    <string name="email">Электронный адрес</string>
+    <string name="night_theme">Ночной режим</string>
+    <string name="change_password">Сменить пароль</string>
+    <string name="name_fragment">Название фрагмента</string>
+    <string name="give_answer">Ответить</string>
 </resources>

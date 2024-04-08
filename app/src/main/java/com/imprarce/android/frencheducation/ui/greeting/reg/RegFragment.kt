@@ -1,6 +1,7 @@
 package com.imprarce.android.frencheducation.ui.greeting.reg
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -22,7 +23,7 @@ class RegFragment : Fragment(R.layout.fragment_reg) {
 
     private var email: String = ""
     private var password: String = ""
-    private var name: String = "1"
+    private var confirmedPassword: String = ""
 
     private var _binding: FragmentRegBinding? = null
     private val binding get() = _binding!!
@@ -78,7 +79,12 @@ class RegFragment : Fragment(R.layout.fragment_reg) {
         binding.regButton.setOnClickListener {
             email = binding.editTextEmail.text.toString()
             password = binding.editTextPassword.text.toString()
-            viewModel.signUp(name, email, password)
+            confirmedPassword = binding.editTextConfirmPassword.text.toString()
+            if(password.equals(confirmedPassword, ignoreCase = true)){
+                viewModel.signUp("", email, password)
+            } else {
+                Toast.makeText(context, "Пароли не совпадают", Toast.LENGTH_LONG).show()
+            }
         }
 
         binding.regWithGoogle.setOnClickListener {

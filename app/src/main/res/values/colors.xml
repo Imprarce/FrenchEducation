@@ -11,6 +11,8 @@
     <color name="gray_for_icon">#263238</color>
     <color name="selected_icon">#FD3A69</color>
     <color name="selected_category_background">#33FD3A69</color>
+    <color name="green">#228B22</color>
+
 
     <!-- Светлая тема -->
     <color name="light_background">#E8EAF6</color>

@@ -44,6 +44,12 @@ class SettingsFragment : Fragment() {
             requireActivity().startActivity(intent)
             requireActivity().finish()
         }
+
+        binding.toolbar.nameFragment.text = R.string.settings.toString()
+
+        binding.toolbar.backArrow.setOnClickListener {
+            findNavController().popBackStack()
+        }
     }
 
 

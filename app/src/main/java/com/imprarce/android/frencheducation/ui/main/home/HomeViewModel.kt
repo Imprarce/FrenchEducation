@@ -1,5 +1,6 @@
-package com.imprarce.android.frencheducation.ui.main
+package com.imprarce.android.frencheducation.ui.main.home
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,7 +13,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(
+class HomeViewModel @Inject constructor(
     private val moduleRepository: ModuleRepository
 ) : ViewModel() {
     private val _moduleListItems = MutableLiveData<List<ModuleListItem>>()
@@ -26,6 +27,7 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             val modules = moduleRepository.getAllModules()
             _moduleListItems.value = modules.map { ModuleListItem(it, calculateProgress(it)) }
+            Log.d("MainViewModel", "$modules")
         }
     }
 

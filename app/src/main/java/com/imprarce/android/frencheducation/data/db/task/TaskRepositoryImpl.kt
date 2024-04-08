@@ -13,4 +13,8 @@ class TaskRepositoryImpl(private val taskDao: TaskDao) : TaskRepository {
         taskDao.insertTask(task)
     }
 
+    override suspend fun getTaskById(taskId: Int): TaskDbEntity {
+        return taskDao.getTaskById(taskId)
+    }
+
 }

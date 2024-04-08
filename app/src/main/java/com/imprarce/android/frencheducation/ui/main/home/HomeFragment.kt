@@ -1,23 +1,25 @@
-package com.imprarce.android.frencheducation.ui.main
+package com.imprarce.android.frencheducation.ui.main.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.imprarce.android.frencheducation.R
+import com.imprarce.android.frencheducation.data.db.module.ModuleListItem
 import com.imprarce.android.frencheducation.databinding.FragmentHomeBinding
 import com.imprarce.android.frencheducation.ui.BaseFragment
-import com.imprarce.android.frencheducation.ui.greeting.GreetingViewModel
 import com.imprarce.android.frencheducation.ui.main.adapters.FilterAdapter
 import com.imprarce.android.frencheducation.ui.main.adapters.ModuleListAdapter
+import com.imprarce.android.frencheducation.ui.main.detailhome.interfaces.OnModuleClickListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeFragment : BaseFragment() {
-    private val viewModel by viewModels<MainViewModel>()
+class HomeFragment : BaseFragment(), OnModuleClickListener {
+    private val viewModel by viewModels<HomeViewModel>()
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
@@ -39,15 +41,14 @@ class HomeFragment : BaseFragment() {
         val adapter = FilterAdapter(filterItems)
         binding.recyclerViewFilters.adapter = adapter
 
-        viewModel.moduleListItems.observe(viewLifecycleOwner){
-            initRecyclerView(binding)
+        viewModel.moduleListItems.observe(viewLifecycleOwner){response ->
+            setAdapter(response)
         }
 
     }
 
-    private fun initRecyclerView(binding: FragmentHomeBinding) {
-        val adapter = ModuleListAdapter { module ->
-        }
+    private fun setAdapter(moduleList: List<ModuleListItem>) {
+        val adapter = ModuleListAdapter(moduleList, this)
         binding.recyclerViewMain.adapter = adapter
         binding.recyclerViewMain.layoutManager = LinearLayoutManager(requireContext())
     }
@@ -56,5 +57,10 @@ class HomeFragment : BaseFragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onModuleClick(moduleListItem: ModuleListItem) {
+        val bundle = bundleOf("id_module" to moduleListItem.module.id_module)
+        findNavController().navigate(R.id.action_homeFragment_to_nav_detail, bundle)
     }
 }

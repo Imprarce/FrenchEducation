@@ -2,9 +2,7 @@ package com.imprarce.android.frencheducation.data.db.task.room
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
-import com.imprarce.android.frencheducation.data.db.progress.room.ModuleDbEntity
 
 @Entity(tableName = "task")
 data class TaskDbEntity(
@@ -12,6 +10,6 @@ data class TaskDbEntity(
     @ColumnInfo(name = "task_name") var taskName: String,
     @ColumnInfo(name = "video_file") var videoFile: String?,
     @ColumnInfo(name = "audio_file") var audioFile: String?,
-    @ColumnInfo(name = "exercise") var exercise: String?,
+    @ColumnInfo(name = "exercise") var exercise: String,
     @ColumnInfo(name = "answer") var answer: String
 )

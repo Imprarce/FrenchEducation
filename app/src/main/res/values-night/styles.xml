@@ -65,12 +65,25 @@
     </style>
 
     <style name="RecyclerViewBackgroundStyle">
-        <item name="android:background">@color/dark_purple</item>
+        <item name="android:backgroundTint">@color/dark_purple</item>
     </style>
 
     <style name="FiltersStyle">
         <item name="android:backgroundTint">@color/dark_gray</item>
         <item name="android:textColor">@color/black</item>
     </style>
+
+    <style name="LinearLayoutSettingsStyle">
+        <item name="android:orientation">vertical</item>
+        <item name="android:paddingStart">@dimen/value_16_dp</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:longClickable">true</item>
+        <item name="android:foreground">?android:attr/selectableItemBackgroundBorderless</item>
+        <item name="android:gravity">start|center</item>
+        <item name="android:paddingBottom">@dimen/value_16_dp</item>
+    </style>
+
 
 </resources>

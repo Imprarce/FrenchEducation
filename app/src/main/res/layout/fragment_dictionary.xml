@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.main.DictionaryFragment">
+    tools:context=".ui.dictionary.DictionaryFragment">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guide_line_vertical_right"
@@ -45,7 +45,7 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_main"
+        android:id="@+id/recycler_view_dictionary"
         android:layout_width="@dimen/value_0_dp"
         android:layout_height="@dimen/value_0_dp"
         tools:listitem="@layout/item_dictionary_recycler_view"

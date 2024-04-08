@@ -1,4 +1,4 @@
-package com.imprarce.android.frencheducation.ui.main
+package com.imprarce.android.frencheducation.ui.main.community
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

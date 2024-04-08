@@ -4,9 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/value_16_dp"
+    android:background="@drawable/custom_rectangle_recycler_view"
     style="@style/RecyclerViewBackgroundStyle">
 
-    <ImageView
+    <com.mikhaellopez.circularimageview.CircularImageView
         android:id="@+id/module_image"
         android:layout_width="@dimen/value_60_dp"
         android:layout_height="@dimen/value_60_dp"
@@ -24,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:text="@string/example_text_for_lesson"
-        android:textSize="@dimen/value_14_sp"
+        android:textSize="@dimen/value_16_sp"
         android:layout_marginStart="@dimen/value_16_dp"
         android:layout_marginEnd="@dimen/value_8_dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -38,16 +39,17 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:text="@string/a1"
-        android:layout_marginEnd="@dimen/value_16_dp"
+        android:layout_marginEnd="@dimen/value_32_dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/module_progressBar"
+        app:layout_constraintEnd_toStartOf="@+id/module_progress_text"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ProgressBar
-        android:id="@+id/module_progressBar"
+    <TextView
+        android:id="@+id/module_progress_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
+        android:text="0%"
         android:layout_marginEnd="@dimen/value_16_dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
