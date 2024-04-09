@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.main.ProfileFragment">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guide_line_vertical_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/value_16_dp"
+        app:layout_editor_absoluteY="@dimen/value_16_dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guide_line_vertical_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/value_16_dp"
+        app:layout_editor_absoluteY="@dimen/value_16_dp" />
+
+    <include
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/value_8_dp"
+        layout="@layout/custom_toolbar_with_back"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+
+    <com.mikhaellopez.circularimageview.CircularImageView
+        android:id="@+id/photo"
+        android:layout_width="@dimen/value_240_dp"
+        android:layout_height="@dimen/value_240_dp"
+        android:layout_marginTop="@dimen/value_32_dp"
+        android:src="@drawable/image_plug"
+        app:layout_constraintEnd_toStartOf="@+id/guide_line_vertical_right"
+        app:layout_constraintStart_toStartOf="@+id/guide_line_vertical_left"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <LinearLayout
+        android:id="@+id/layout_name"
+        style="@style/LinearLayoutSettingsStyle"
+        android:layout_width="@dimen/value_0_dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/value_16_dp"
+        app:layout_constraintEnd_toStartOf="@+id/guide_line_vertical_right"
+        app:layout_constraintStart_toStartOf="@+id/guide_line_vertical_left"
+        app:layout_constraintTop_toBottomOf="@+id/photo">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/value_32_dp"
+            android:text="@string/name" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/value_32_dp"
+            android:text="@string/plug"
+            android:textColor="@color/dark_gray_menu"
+            android:textSize="@dimen/value_14_sp" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_email"
+        style="@style/LinearLayoutSettingsStyle"
+        android:layout_width="@dimen/value_0_dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toStartOf="@+id/guide_line_vertical_right"
+        app:layout_constraintStart_toStartOf="@+id/guide_line_vertical_left"
+        app:layout_constraintTop_toBottomOf="@+id/layout_name">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/value_32_dp"
+            android:text="@string/email" />
+
+        <TextView
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/value_32_dp"
+            android:text="@string/plug"
+            android:textColor="@color/dark_gray_menu"
+            android:textSize="@dimen/value_14_sp" />
+
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

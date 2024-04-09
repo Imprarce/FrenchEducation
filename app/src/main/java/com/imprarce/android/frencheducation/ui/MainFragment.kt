@@ -1,5 +1,7 @@
 package com.imprarce.android.frencheducation.ui
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.OnBackPressedCallback
@@ -10,6 +12,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.imprarce.android.frencheducation.R
+import com.imprarce.android.frencheducation.utils.ImagePicker
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -18,6 +21,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
 
         val bottomNavigationView = view.findViewById<BottomNavigationView>(R.id.bottom_nav_view)
         val navController = (childFragmentManager.findFragmentById(R.id.mainContainerView) as NavHostFragment).navController
@@ -51,5 +55,15 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         })
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == IMAGE_PICK_CODE && resultCode == Activity.RESULT_OK) {
+
+        }
+    }
+
+    companion object {
+        const val IMAGE_PICK_CODE = 1
+    }
 
 }

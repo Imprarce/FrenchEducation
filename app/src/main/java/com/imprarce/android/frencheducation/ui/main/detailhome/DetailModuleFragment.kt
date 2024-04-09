@@ -11,27 +11,39 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.imprarce.android.frencheducation.R
-import com.imprarce.android.frencheducation.data.db.module.ModuleListItem
 import com.imprarce.android.frencheducation.data.db.task.TaskListItem
 import com.imprarce.android.frencheducation.databinding.FragmentDetailModuleBinding
-import com.imprarce.android.frencheducation.ui.main.adapters.ModuleListAdapter
 import com.imprarce.android.frencheducation.ui.main.adapters.TaskListAdapter
 import com.imprarce.android.frencheducation.ui.main.detailhome.interfaces.OnTaskClickListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class DetailModuleFragment : Fragment(),  OnTaskClickListener{
+class DetailModuleFragment : Fragment(),  OnTaskClickListener {
     private val viewModel by viewModels<DetailModuleTaskViewModel>()
 
     private var _binding: FragmentDetailModuleBinding? = null
     private val binding get() = _binding!!
+    private var userId: String = ""
+    private var moduleId: Int = 0
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         val id_module = arguments?.getInt("id_module")
+        val id_user = arguments?.getString("user_id")
+
+
         Log.d("DetailModuleFragment", "$id_module")
+
+        if(id_user != null){
+            userId = id_user
+        }
+
         if(id_module != null){
             viewModel.loadTasks(id_module)
+            viewModel.getCompletedTasks(userId)
+            moduleId = id_module
         }
     }
 
@@ -56,19 +68,22 @@ class DetailModuleFragment : Fragment(),  OnTaskClickListener{
             findNavController().popBackStack()
         }
 
-        viewModel.taskListItems.observe(viewLifecycleOwner){ response ->
-            setAdapter(response)
+        viewModel.taskCompletedList.observe(viewLifecycleOwner) { completedTasks ->
+            viewModel.taskListItems.observe(viewLifecycleOwner) { taskList ->
+                val taskListsContainer = TaskListsContainer(taskList, completedTasks)
+                setAdapter(taskListsContainer)
+            }
         }
     }
 
-    private fun setAdapter(taskList: List<TaskListItem>) {
-        val adapter = TaskListAdapter(taskList, this)
+    private fun setAdapter(taskListsContainer: TaskListsContainer) {
+        val adapter = TaskListAdapter(taskListsContainer.taskList, this, taskListsContainer.taskListCompleted)
         binding.recyclerViewDetail.adapter = adapter
         binding.recyclerViewDetail.layoutManager = LinearLayoutManager(requireContext())
     }
 
     override fun onTaskClick(taskListItem: TaskListItem) {
-        val bundle = bundleOf("id_task" to taskListItem.task.id_task)
+        val bundle = bundleOf("id_task" to taskListItem.task.id_task, "user_id" to userId)
         findNavController().navigate(R.id.action_detailModuleFragment_to_detailTaskFragment, bundle)
     }
 
@@ -76,5 +91,7 @@ class DetailModuleFragment : Fragment(),  OnTaskClickListener{
         super.onDestroyView()
         _binding = null
     }
+
+
 
 }

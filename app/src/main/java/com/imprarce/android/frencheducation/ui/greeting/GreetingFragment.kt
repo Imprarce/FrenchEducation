@@ -17,7 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class GreetingFragment : Fragment(R.layout.fragment_greeting) {
-    private val viewModel by viewModels<GreetingViewModel>()
+    private val viewModel by viewModels<FirebaseViewModel>()
 
     private var _binding: FragmentGreetingBinding? = null
     private val binding get() = _binding!!

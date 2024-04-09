@@ -1,7 +1,6 @@
 package com.imprarce.android.frencheducation.ui.greeting.reg
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,12 +13,12 @@ import androidx.navigation.navOptions
 import com.imprarce.android.frencheducation.R
 import com.imprarce.android.frencheducation.data.api.ResponseFirebase
 import com.imprarce.android.frencheducation.databinding.FragmentRegBinding
-import com.imprarce.android.frencheducation.ui.greeting.GreetingViewModel
+import com.imprarce.android.frencheducation.ui.greeting.FirebaseViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class RegFragment : Fragment(R.layout.fragment_reg) {
-    private val viewModel by viewModels<GreetingViewModel>()
+    private val viewModel by viewModels<FirebaseViewModel>()
 
     private var email: String = ""
     private var password: String = ""
@@ -81,7 +80,7 @@ class RegFragment : Fragment(R.layout.fragment_reg) {
             password = binding.editTextPassword.text.toString()
             confirmedPassword = binding.editTextConfirmPassword.text.toString()
             if(password.equals(confirmedPassword, ignoreCase = true)){
-                viewModel.signUp("", email, password)
+                viewModel.signUp(email, password)
             } else {
                 Toast.makeText(context, "Пароли не совпадают", Toast.LENGTH_LONG).show()
             }

@@ -17,4 +17,15 @@ class UserRepositoryImpl(private val userDao: UserDao) : UserRepository {
         userDao.insertUser(user)
     }
 
+    override suspend fun getUserById(id_user: String): UserDbEntity? {
+        return userDao.getUserById(id_user)
+    }
+
+    override suspend fun updateUserName(id_user: String, name: String) {
+        userDao.updateUserName(id_user, name)
+    }
+
+    override suspend fun updateUserPhoto(id_user: String, photoUrl: String) {
+        userDao.updateUserPhoto(id_user, photoUrl)
+    }
 }

@@ -47,4 +47,5 @@
     <string name="change_password">Сменить пароль</string>
     <string name="name_fragment">Название фрагмента</string>
     <string name="give_answer">Ответить</string>
+    <string name="change">Поменять</string>
 </resources>

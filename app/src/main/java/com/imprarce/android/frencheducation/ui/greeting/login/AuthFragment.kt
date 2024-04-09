@@ -14,12 +14,12 @@ import androidx.navigation.navOptions
 import com.imprarce.android.frencheducation.R
 import com.imprarce.android.frencheducation.data.api.ResponseFirebase
 import com.imprarce.android.frencheducation.databinding.FragmentAuthBinding
-import com.imprarce.android.frencheducation.ui.greeting.GreetingViewModel
+import com.imprarce.android.frencheducation.ui.greeting.FirebaseViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class AuthFragment : Fragment(R.layout.fragment_auth) {
-    private val viewModel by viewModels<GreetingViewModel>()
+    private val viewModel by viewModels<FirebaseViewModel>()
 
     private var email: String = ""
     private var password: String = ""

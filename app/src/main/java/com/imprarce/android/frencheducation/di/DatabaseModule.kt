@@ -18,6 +18,12 @@ import com.imprarce.android.frencheducation.data.db.progress.room.ModuleTasksRep
 import com.imprarce.android.frencheducation.data.db.task.TaskRepositoryImpl
 import com.imprarce.android.frencheducation.data.db.task.room.TaskDao
 import com.imprarce.android.frencheducation.data.db.task.room.TaskRepository
+import com.imprarce.android.frencheducation.data.db.task_completed.TaskCompletedRepositoryImpl
+import com.imprarce.android.frencheducation.data.db.task_completed.room.TaskCompletedDao
+import com.imprarce.android.frencheducation.data.db.task_completed.room.TaskCompletedRepository
+import com.imprarce.android.frencheducation.data.db.user.UserRepositoryImpl
+import com.imprarce.android.frencheducation.data.db.user.room.UserDao
+import com.imprarce.android.frencheducation.data.db.user.room.UserRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -77,6 +83,26 @@ class DatabaseModule {
     @Provides
     fun provideDictionaryDao(database: AppDatabase): DictionaryDao {
         return database.dictionaryDao()
+    }
+
+    @Provides
+    fun provideUserRepository(userDao: UserDao): UserRepository {
+        return UserRepositoryImpl(userDao)
+    }
+
+    @Provides
+    fun provideUserDao(database: AppDatabase): UserDao {
+        return database.userDao()
+    }
+
+    @Provides
+    fun provideTaskCompletedRepository(taskCompletedDao: TaskCompletedDao) : TaskCompletedRepository{
+        return TaskCompletedRepositoryImpl(taskCompletedDao)
+    }
+
+    @Provides
+    fun provideTaskCompletedDao(database: AppDatabase): TaskCompletedDao {
+        return database.taskCompletedDao()
     }
 
     companion object {

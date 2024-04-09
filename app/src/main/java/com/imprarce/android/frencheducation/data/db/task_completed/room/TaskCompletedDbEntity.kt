@@ -13,6 +13,6 @@ import com.imprarce.android.frencheducation.data.db.user.room.UserDbEntity
     ],
     primaryKeys = ["id_user", "id_task"])
 data class TaskCompletedDbEntity(
-    @ColumnInfo(name = "id_user") val id_user: Int,
+    @ColumnInfo(name = "id_user") val id_user: String,
     @ColumnInfo(name = "id_task") val id_task: Int
 )

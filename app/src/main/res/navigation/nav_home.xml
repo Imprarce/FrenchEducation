@@ -23,7 +23,7 @@
         tools:layout="@layout/fragment_i_e_l_t_s" />
     <fragment
         android:id="@+id/dictionaryFragment"
-        android:name="com.imprarce.android.frencheducation.ui.dictionary.DictionaryFragment"
+        android:name="com.imprarce.android.frencheducation.ui.main.dictionary.DictionaryFragment"
         android:label="fragment_dictionary"
         tools:layout="@layout/fragment_dictionary" />
     <fragment
@@ -38,10 +38,15 @@
         tools:layout="@layout/fragment_community" />
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.imprarce.android.frencheducation.ui.main.SettingsFragment"
+        android:name="com.imprarce.android.frencheducation.ui.main.settings.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" />
     <include app:graph="@navigation/nav_detail" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.imprarce.android.frencheducation.ui.main.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
 
 
 </navigation>

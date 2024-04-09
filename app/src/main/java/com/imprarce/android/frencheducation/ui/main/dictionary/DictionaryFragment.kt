@@ -1,4 +1,4 @@
-package com.imprarce.android.frencheducation.ui.dictionary
+package com.imprarce.android.frencheducation.ui.main.dictionary
 
 import android.os.Bundle
 import android.view.LayoutInflater

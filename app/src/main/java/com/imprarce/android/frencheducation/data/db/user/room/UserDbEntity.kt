@@ -7,7 +7,7 @@ import java.util.*
 
 @Entity(tableName = "user")
 data class UserDbEntity(
-    @PrimaryKey(autoGenerate = true) var id_user: Int = 0,
+    @PrimaryKey var id_user: String = "",
     @ColumnInfo(name = "password") var password: String,
     @ColumnInfo(name = "login") var login: String,
     @ColumnInfo(name = "user_name") var userName: String?,

@@ -25,4 +25,5 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun dictionaryDao(): DictionaryDao
     abstract fun taskCompletedDao(): TaskCompletedDao
 
+
 }
