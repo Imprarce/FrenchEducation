@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
@@ -13,12 +14,13 @@ import androidx.navigation.navOptions
 import com.imprarce.android.frencheducation.R
 import com.imprarce.android.frencheducation.data.api.ResponseFirebase
 import com.imprarce.android.frencheducation.databinding.FragmentRegBinding
-import com.imprarce.android.frencheducation.ui.greeting.FirebaseViewModel
+import com.imprarce.android.frencheducation.ui.MainViewModel
+import com.imprarce.android.frencheducation.ui.greeting.GreetingViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class RegFragment : Fragment(R.layout.fragment_reg) {
-    private val viewModel by viewModels<FirebaseViewModel>()
+class RegFragment : Fragment() {
+    private val viewModel: GreetingViewModel by activityViewModels()
 
     private var email: String = ""
     private var password: String = ""

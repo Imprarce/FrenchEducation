@@ -18,6 +18,9 @@ interface UserDao {
 
     @Query("UPDATE user SET image_url = :photoUri WHERE id_user = :userId")
     suspend fun updateUserPhoto(userId: String, photoUri: String)
+
+    @Update
+    suspend fun updateUser(user: UserDbEntity)
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertUser(user: UserDbEntity)
 

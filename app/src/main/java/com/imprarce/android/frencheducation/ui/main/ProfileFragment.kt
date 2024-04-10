@@ -5,17 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.imprarce.android.frencheducation.R
 import com.imprarce.android.frencheducation.databinding.FragmentProfileBinding
-import com.imprarce.android.frencheducation.ui.greeting.FirebaseViewModel
+import com.imprarce.android.frencheducation.ui.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ProfileFragment : Fragment() {
-    private val viewModel by viewModels<FirebaseViewModel>()
+    private val viewModel: MainViewModel by activityViewModels()
+
 
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!

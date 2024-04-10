@@ -1,24 +1,38 @@
 package com.imprarce.android.frencheducation.ui
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.imprarce.android.frencheducation.R
-import com.imprarce.android.frencheducation.utils.ImagePicker
+import com.imprarce.android.frencheducation.databinding.FragmentMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class MainFragment : Fragment(R.layout.fragment_main) {
+class MainFragment : Fragment() {
 
+    private val mainViewModel: MainViewModel by activityViewModels()
+    private var _binding: FragmentMainBinding? = null
+    private val binding get() = _binding!!
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = FragmentMainBinding.inflate(inflater, container, false)
+
+        return binding.root
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -55,15 +69,9 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         })
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == IMAGE_PICK_CODE && resultCode == Activity.RESULT_OK) {
-
-        }
-    }
-
-    companion object {
-        const val IMAGE_PICK_CODE = 1
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
 }

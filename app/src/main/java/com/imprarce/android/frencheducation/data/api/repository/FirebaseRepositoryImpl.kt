@@ -4,7 +4,10 @@ import android.net.Uri
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.UserProfileChangeRequest
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.imprarce.android.frencheducation.data.api.ResponseFirebase
@@ -53,6 +56,20 @@ class FirebaseRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun getName(): String {
+        var name = ""
+        try {
+            if (currentUser != null) {
+                val snapshot = firebaseReference.child(currentUser!!.uid).child("name").get().await()
+                name = snapshot.getValue(String::class.java) ?: ""
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        if(name == "") name = currentUser?.email.toString()
+        return name
+    }
+
     override suspend fun changePhoto(photoUri: Uri) {
         try {
             val storageRef = firebaseStorage.child("images/${currentUser!!.uid}")
@@ -72,8 +89,14 @@ class FirebaseRepositoryImpl @Inject constructor(
 
     override suspend fun getPhotoUrl(): String {
 
-        val storageRef = firebaseStorage.child("images/${currentUser!!.uid}")
-        return storageRef.downloadUrl.await().toString()
+        var photoUrl: String = ""
+        try{
+            val storageRef = firebaseStorage.child("images/${currentUser!!.uid}")
+            photoUrl = storageRef.downloadUrl.await().toString()
+        } catch (e : Exception){
+            e.printStackTrace()
+        }
+        return photoUrl
     }
 
     override fun logOut() {

@@ -3,13 +3,10 @@ package com.imprarce.android.frencheducation.ui.main.settings
 import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import androidx.fragment.app.DialogFragment
-import androidx.lifecycle.ViewModel
 import com.imprarce.android.frencheducation.R
-import com.imprarce.android.frencheducation.ui.greeting.FirebaseViewModel
 import com.imprarce.android.frencheducation.utils.ThemeUtil.checkTheme
 
 class ChangeNameDialogFragment() : DialogFragment() {

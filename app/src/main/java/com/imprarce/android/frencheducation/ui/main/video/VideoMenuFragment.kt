@@ -1,24 +1,23 @@
-package com.imprarce.android.frencheducation.ui.main.community
+package com.imprarce.android.frencheducation.ui.main.video
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import androidx.fragment.app.Fragment
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.imprarce.android.frencheducation.R
-import com.imprarce.android.frencheducation.databinding.FragmentCommunityBinding
+import com.imprarce.android.frencheducation.databinding.FragmentVideoMenuBinding
 import com.imprarce.android.frencheducation.ui.BaseFragment
 import com.imprarce.android.frencheducation.ui.MainViewModel
 import com.imprarce.android.frencheducation.ui.main.adapters.FilterAdapter
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
-class CommunityFragment : BaseFragment() {
+class VideoMenuFragment : BaseFragment() {
     private val mainViewModel: MainViewModel by activityViewModels()
 
-    private var _binding: FragmentCommunityBinding? = null
+    private var _binding : FragmentVideoMenuBinding? = null
     private val binding get() = _binding!!
 
     private val filterItems = listOf(R.string.rating, R.string.title, R.string.views)
@@ -28,10 +27,11 @@ class CommunityFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentCommunityBinding.inflate(inflater, container, false)
+        _binding = FragmentVideoMenuBinding.inflate(inflater, container, false)
 
         return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -50,4 +50,5 @@ class CommunityFragment : BaseFragment() {
         super.onDestroyView()
         _binding = null
     }
+
 }

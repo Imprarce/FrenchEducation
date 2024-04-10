@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,6 +14,7 @@ import com.imprarce.android.frencheducation.R
 import com.imprarce.android.frencheducation.data.db.module.ModuleListItem
 import com.imprarce.android.frencheducation.databinding.FragmentHomeBinding
 import com.imprarce.android.frencheducation.ui.BaseFragment
+import com.imprarce.android.frencheducation.ui.MainViewModel
 import com.imprarce.android.frencheducation.ui.main.adapters.FilterAdapter
 import com.imprarce.android.frencheducation.ui.main.adapters.ModuleListAdapter
 import com.imprarce.android.frencheducation.ui.main.detailhome.interfaces.OnModuleClickListener
@@ -20,12 +22,14 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment(), OnModuleClickListener {
-    private val viewModel by viewModels<HomeViewModel>()
+    private val mainViewModel: MainViewModel by activityViewModels()
 
+    private val viewModel by viewModels<HomeViewModel>()
     private var userId : String? = null
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private val filterItems = listOf(R.string.title, R.string.level, R.string.progress)
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,25 +44,28 @@ class HomeFragment : BaseFragment(), OnModuleClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.setUserId()
-
-        viewModel.userId.observe(viewLifecycleOwner){user ->
-            userId = user
+        mainViewModel.userFromRoom.observe(viewLifecycleOwner){user ->
+            if(user != null){
+                userId = user.id_user
+            }
         }
 
-        val adapter = FilterAdapter(filterItems)
-        binding.recyclerViewFilters.adapter = adapter
 
         viewModel.moduleListItems.observe(viewLifecycleOwner){response ->
             setAdapter(response)
         }
 
-        viewModel.userPhotoUrl.observe(viewLifecycleOwner){ url ->
-            Glide.with(requireContext())
-                .load(url)
-                .placeholder(R.drawable.image_plug)
-                .into(binding.toolbar.iconUser)
+        mainViewModel.userFromRoom.observe(viewLifecycleOwner){ url ->
+            if(url != null) {
+                Glide.with(requireContext())
+                    .load(url.imageUrl)
+                    .placeholder(R.drawable.image_plug)
+                    .into(binding.toolbar.iconUser)
+            }
         }
+
+        val adapter = FilterAdapter(filterItems)
+        binding.recyclerViewFilters.adapter = adapter
 
     }
 

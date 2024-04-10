@@ -4,19 +4,24 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.imprarce.android.frencheducation.R
 import com.imprarce.android.frencheducation.data.db.dictionary.DictionaryListItem
 import com.imprarce.android.frencheducation.databinding.FragmentDictionaryBinding
+import com.imprarce.android.frencheducation.ui.BaseFragment
+import com.imprarce.android.frencheducation.ui.MainViewModel
+import com.imprarce.android.frencheducation.ui.RoomViewModel
 import com.imprarce.android.frencheducation.ui.main.adapters.DictionaryAdapter
 import com.imprarce.android.frencheducation.ui.main.adapters.FilterAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class DictionaryFragment : Fragment() {
+class DictionaryFragment : BaseFragment() {
+    private val mainViewModel: MainViewModel by activityViewModels()
     private val viewModel by viewModels<DictionaryViewModel>()
     private var _binding: FragmentDictionaryBinding? = null
     private val binding get() = _binding!!
@@ -36,13 +41,18 @@ class DictionaryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView_filters)
-
         val adapter = FilterAdapter(filterItems)
-        recyclerView.adapter = adapter
+        binding.recyclerViewFilters.adapter = adapter
 
         viewModel.dictionaryList.observe(viewLifecycleOwner){ response ->
             setAdapter(response)
+        }
+
+        mainViewModel.userFromRoom.observe(viewLifecycleOwner){ url ->
+            Glide.with(requireContext())
+                .load(url.imageUrl)
+                .placeholder(R.drawable.image_plug)
+                .into(binding.toolbar.iconUser)
         }
     }
 

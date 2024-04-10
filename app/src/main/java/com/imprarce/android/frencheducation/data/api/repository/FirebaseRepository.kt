@@ -11,6 +11,8 @@ interface FirebaseRepository {
 
     suspend fun changeName(name: String)
 
+    suspend fun getName() : String
+
     suspend fun changePhoto(photoUri: Uri)
 
     suspend fun getPhotoUrl(): String

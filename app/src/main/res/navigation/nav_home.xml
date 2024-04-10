@@ -18,7 +18,7 @@
     </fragment>
     <fragment
         android:id="@+id/IELTSFragment"
-        android:name="com.imprarce.android.frencheducation.ui.main.IELTSFragment"
+        android:name="com.imprarce.android.frencheducation.ui.main.ielts.IELTSFragment"
         android:label="fragment_i_e_l_t_s"
         tools:layout="@layout/fragment_i_e_l_t_s" />
     <fragment
@@ -28,7 +28,7 @@
         tools:layout="@layout/fragment_dictionary" />
     <fragment
         android:id="@+id/videoMenuFragment"
-        android:name="com.imprarce.android.frencheducation.ui.main.VideoMenuFragment"
+        android:name="com.imprarce.android.frencheducation.ui.main.video.VideoMenuFragment"
         android:label="fragment_video_menu"
         tools:layout="@layout/fragment_video_menu" />
     <fragment

@@ -1,11 +1,13 @@
 package com.imprarce.android.frencheducation.ui.greeting
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
@@ -16,8 +18,8 @@ import com.imprarce.android.frencheducation.databinding.FragmentGreetingBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class GreetingFragment : Fragment(R.layout.fragment_greeting) {
-    private val viewModel by viewModels<FirebaseViewModel>()
+class GreetingFragment : Fragment() {
+    private val viewModel: GreetingViewModel by activityViewModels()
 
     private var _binding: FragmentGreetingBinding? = null
     private val binding get() = _binding!!
@@ -79,6 +81,9 @@ class GreetingFragment : Fragment(R.layout.fragment_greeting) {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        Log.d("GreetingFragment", "Fragment destroyed View")
+        viewModelStore.clear()
         _binding = null
     }
+
 }

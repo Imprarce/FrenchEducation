@@ -7,4 +7,6 @@ interface UserRepository {
     suspend fun getUserById(id_user: String) : UserDbEntity?
     suspend fun updateUserName(id_user: String, name: String)
     suspend fun updateUserPhoto(id_user: String, photoUrl: String)
+    suspend fun updateUser(user: UserDbEntity)
+
 }
