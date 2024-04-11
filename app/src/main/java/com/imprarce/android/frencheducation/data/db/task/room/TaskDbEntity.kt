@@ -11,5 +11,6 @@ data class TaskDbEntity(
     @ColumnInfo(name = "video_file") var videoFile: String?,
     @ColumnInfo(name = "audio_file") var audioFile: String?,
     @ColumnInfo(name = "exercise") var exercise: String,
-    @ColumnInfo(name = "answer") var answer: String
+    @ColumnInfo(name = "answer") var answer: String,
+    @ColumnInfo(name = "type") var type: String
 )

@@ -44,15 +44,21 @@ class HomeFragment : BaseFragment(), OnModuleClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.customProgressBar.root.visibility = View.VISIBLE
+        binding.overlay.visibility = View.VISIBLE
+
         mainViewModel.userFromRoom.observe(viewLifecycleOwner){user ->
             if(user != null){
                 userId = user.id_user
+                viewModel.loadModules(user.id_user)
             }
         }
 
 
         viewModel.moduleListItems.observe(viewLifecycleOwner){response ->
             setAdapter(response)
+            binding.customProgressBar.root.visibility = View.GONE
+            binding.overlay.visibility = View.GONE
         }
 
         mainViewModel.userFromRoom.observe(viewLifecycleOwner){ url ->

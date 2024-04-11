@@ -85,5 +85,9 @@
         <item name="android:paddingBottom">@dimen/value_16_dp</item>
     </style>
 
+    <style name="ProgressBarStyle">
+        <item name="android:background">@color/dark_black_icon_aut</item>
+    </style>
+
 
 </resources>

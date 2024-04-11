@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,8 +20,9 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class DetailModuleFragment : Fragment(),  OnTaskClickListener {
-    private val viewModel by viewModels<DetailModuleTaskViewModel>()
+    private val viewModel: DetailModuleTaskViewModel by activityViewModels()
 
+    var adapter = TaskListAdapter(emptyList(), this, emptyList())
     private var _binding: FragmentDetailModuleBinding? = null
     private val binding get() = _binding!!
     private var userId: String = ""
@@ -74,13 +76,18 @@ class DetailModuleFragment : Fragment(),  OnTaskClickListener {
                 setAdapter(taskListsContainer)
             }
         }
+
+        viewModel.taskComplete.observe(viewLifecycleOwner){task ->
+            adapter.markTaskCompleted(task)
+        }
     }
 
     private fun setAdapter(taskListsContainer: TaskListsContainer) {
-        val adapter = TaskListAdapter(taskListsContainer.taskList, this, taskListsContainer.taskListCompleted)
+        adapter = TaskListAdapter(taskListsContainer.taskList, this, taskListsContainer.taskListCompleted)
         binding.recyclerViewDetail.adapter = adapter
         binding.recyclerViewDetail.layoutManager = LinearLayoutManager(requireContext())
     }
+
 
     override fun onTaskClick(taskListItem: TaskListItem) {
         val bundle = bundleOf("id_task" to taskListItem.task.id_task, "user_id" to userId)
@@ -92,6 +99,9 @@ class DetailModuleFragment : Fragment(),  OnTaskClickListener {
         _binding = null
     }
 
-
+    override fun onDestroy() {
+        super.onDestroy()
+        viewModel.destroyViewModel()
+    }
 
 }

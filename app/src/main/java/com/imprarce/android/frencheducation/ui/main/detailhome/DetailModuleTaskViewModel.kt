@@ -5,10 +5,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.imprarce.android.frencheducation.data.db.progress.room.ModuleTasksRepository
+import com.imprarce.android.frencheducation.data.api.ResponseFirebase
+import com.imprarce.android.frencheducation.data.db.ResponseRoom
+import com.imprarce.android.frencheducation.data.db.module_tasks.room.ModuleTasksRepository
 import com.imprarce.android.frencheducation.data.db.task.TaskListItem
 import com.imprarce.android.frencheducation.data.db.task.room.TaskRepository
-import com.imprarce.android.frencheducation.data.db.task_completed.TaskCompletedItemList
 import com.imprarce.android.frencheducation.data.db.task_completed.room.TaskCompletedDbEntity
 import com.imprarce.android.frencheducation.data.db.task_completed.room.TaskCompletedRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -30,34 +31,77 @@ class DetailModuleTaskViewModel @Inject constructor(
     private val _taskCompletedList = MutableLiveData<List<Int>>()
     val taskCompletedList: LiveData<List<Int>> = _taskCompletedList
 
+    private var _taskComplete = MutableLiveData<Int>()
+    val taskComplete: LiveData<Int> = _taskComplete
+
+    init {
+        Log.d("DetailModuleTaskViewModel", "ViewModel created")
+    }
+
     fun loadTasks(id_module: Int){
         viewModelScope.launch {
-            val tasksIdList = repositoryTaskModule.getTaskIdsForModule(id_module)
-            val tasksList = repositoryTaskModule.getTasksByIds(tasksIdList)
-            _taskListItems.value = tasksList.map { TaskListItem(it) }
+            when (val response = repositoryTaskModule.getTaskIdsForModule(id_module)) {
+                is ResponseRoom.Success -> {
+                    val tasksIdList = response.result
+                    when (val tasksList = repositoryTaskModule.getTasksByIds(tasksIdList)) {
+                        is ResponseRoom.Success -> {
+                            _taskListItems.value = tasksList.result.map { TaskListItem(it) }
+                        }
+                        else -> {
+                        }
+                    }
+                }
+                is ResponseRoom.Failure -> {
+                }
+                is ResponseRoom.Loading -> {
+                }
+            }
         }
     }
 
     fun getTask(id_task: Int){
         viewModelScope.launch {
-            val task = repositoryTask.getTaskById(id_task)
-            _taskItem.value = TaskListItem(task)
+            when (val response = repositoryTask.getTaskById(id_task)) {
+                is ResponseRoom.Success -> {
+                    _taskItem.value = response.result?.let { TaskListItem(it) }
+                }
+                is ResponseRoom.Failure -> {
+                }
+                is ResponseRoom.Loading -> {
+                }
+            }
         }
     }
 
     fun completeTask(id_task: Int, id_user: String){
         viewModelScope.launch {
             val taskCompleted = TaskCompletedDbEntity(id_user, id_task)
+            _taskComplete.value = id_task
             repositoryTaskCompleted.insertTaskCompleted(taskCompleted)
         }
     }
 
     fun getCompletedTasks(id_user: String) {
         viewModelScope.launch {
-            val completedTasks = repositoryTaskCompleted.getCompletedTasksForUser(id_user)
-            val taskIds = completedTasks.map { it.id_task }
-            _taskCompletedList.value = taskIds
+            when (val response = repositoryTaskCompleted.getCompletedTasksForUser(id_user)) {
+                is ResponseRoom.Success -> {
+                    val completedTasks = response.result
+                    val taskIds = completedTasks.map { it.id_task }
+                    _taskCompletedList.value = taskIds
+                }
+                is ResponseRoom.Failure -> {
+                }
+                is ResponseRoom.Loading -> {
+                }
+            }
         }
     }
 
+    fun destroyViewModel(){
+        onCleared()
+    }
+    override fun onCleared() {
+        super.onCleared()
+        Log.d("DetailModuleTaskViewModel", "ViewModel destroyed")
+    }
 }

@@ -84,4 +84,8 @@
         <item name="android:gravity">start|center</item>
         <item name="android:paddingBottom">@dimen/value_16_dp</item>
     </style>
+
+    <style name="ProgressBarStyle">
+        <item name="android:background">@color/light_gray_button_greeting</item>
+    </style>
 </resources>

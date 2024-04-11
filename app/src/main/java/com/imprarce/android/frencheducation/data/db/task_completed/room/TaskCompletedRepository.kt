@@ -1,9 +1,9 @@
 package com.imprarce.android.frencheducation.data.db.task_completed.room
 
-import com.imprarce.android.frencheducation.data.db.task.room.TaskDbEntity
+import com.imprarce.android.frencheducation.data.db.ResponseRoom
 
 interface TaskCompletedRepository {
-    suspend fun getAllTaskCompleted() : List<TaskCompletedDbEntity>
-    suspend fun insertTaskCompleted(taskCompletedDbEntity: TaskCompletedDbEntity)
-    suspend fun getCompletedTasksForUser(userId: String) : List<TaskCompletedDbEntity>
+    suspend fun getAllTaskCompleted(): ResponseRoom<List<TaskCompletedDbEntity>>
+    suspend fun insertTaskCompleted(taskCompletedDbEntity: TaskCompletedDbEntity): ResponseRoom<Unit>
+    suspend fun getCompletedTasksForUser(userId: String): ResponseRoom<List<TaskCompletedDbEntity>>
 }

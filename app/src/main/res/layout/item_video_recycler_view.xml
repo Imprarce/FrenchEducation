@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/value_16_dp"
+    android:background="@drawable/custom_rectangle_recycler_view"
     style="@style/RecyclerViewBackgroundStyle">
 
     <ImageView
@@ -12,55 +13,15 @@
         android:layout_width="160dp"
         android:layout_height="160dp"
         android:layout_marginStart="@dimen/value_16_dp"
+        android:layout_marginBottom="@dimen/value_16_dp"
         android:layout_marginTop="@dimen/value_16_dp"
         android:scaleType="centerCrop"
         android:src="@drawable/image_plug"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/value_16_dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/big_image"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/big_image">
 
-        <ImageView
-            android:id="@+id/small_image1"
-            android:layout_width="@dimen/value_32_dp"
-            android:layout_height="@dimen/value_32_dp"
-            android:layout_weight="1"
-            android:layout_marginStart="@dimen/value_16_dp"
-            android:src="@drawable/image_plug" />
-
-        <ImageView
-            android:id="@+id/small_image2"
-            android:layout_width="@dimen/value_32_dp"
-            android:layout_height="@dimen/value_32_dp"
-            android:layout_marginStart="@dimen/value_16_dp"
-            android:layout_weight="1"
-            android:src="@drawable/image_plug" />
-
-        <ImageView
-            android:id="@+id/small_image3"
-            android:layout_width="@dimen/value_32_dp"
-            android:layout_height="@dimen/value_32_dp"
-            android:layout_marginStart="@dimen/value_16_dp"
-            android:layout_weight="1"
-            android:src="@drawable/image_plug" />
-
-        <ImageView
-            android:id="@+id/small_image4"
-            android:layout_width="@dimen/value_32_dp"
-            android:layout_height="@dimen/value_32_dp"
-            android:layout_marginStart="@dimen/value_16_dp"
-            android:layout_weight="1"
-            android:src="@drawable/image_plug" />
-    </LinearLayout>
 
     <TextView
         android:id="@+id/title_text"

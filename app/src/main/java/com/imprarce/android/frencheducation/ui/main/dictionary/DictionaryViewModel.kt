@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.imprarce.android.frencheducation.data.db.ResponseRoom
 import com.imprarce.android.frencheducation.data.db.dictionary.DictionaryListItem
 import com.imprarce.android.frencheducation.data.db.dictionary.room.DictionaryRepository
 import com.imprarce.android.frencheducation.data.db.user.room.UserRepository
@@ -26,8 +27,17 @@ class DictionaryViewModel @Inject constructor(
 
     private fun loadDictionary(){
         viewModelScope.launch {
-            val dictionary = dictionaryRepository.getAllWords()
-            _dictionaryList.value = dictionary.map { DictionaryListItem(it) }
+            when (val response = dictionaryRepository.getAllWords()) {
+                is ResponseRoom.Success -> {
+                    val dictionary = response.result
+                    _dictionaryList.value = dictionary.map { DictionaryListItem(it) }
+                }
+                is ResponseRoom.Failure -> {
+                    Log.e("DictionaryViewModel", "Failed to load dictionary: ${response.exception}")
+                }
+                is ResponseRoom.Loading -> {
+                }
+            }
         }
     }
 

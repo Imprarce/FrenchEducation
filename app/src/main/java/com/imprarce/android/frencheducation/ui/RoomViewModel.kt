@@ -21,14 +21,13 @@ class RoomViewModel @Inject constructor(
     val userFromRoom: LiveData<UserDbEntity> = _userFromRoom
 
     init {
-        getUser()
     }
 
-    private fun getUser() = viewModelScope.launch{
-        val currentUser = repository.currentUser
-        if (currentUser != null) {
-            val id_user = currentUser.uid
-            _userFromRoom.value = userRepository.getUserById(id_user)
-        }
-    }
+//    private fun getUser() = viewModelScope.launch{
+//        val currentUser = repository.currentUser
+//        if (currentUser != null) {
+//            val id_user = currentUser.uid
+//            _userFromRoom.value = userRepository.getUserById(id_user)
+//        }
+//    }
 }

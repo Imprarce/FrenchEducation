@@ -11,10 +11,13 @@ import com.imprarce.android.frencheducation.data.db.dictionary.room.DictionaryDa
 import com.imprarce.android.frencheducation.data.db.dictionary.room.DictionaryRepository
 import com.imprarce.android.frencheducation.data.db.module.ModuleRepositoryImpl
 import com.imprarce.android.frencheducation.data.db.module_tasks.ModuleTasksRepositoryImpl
-import com.imprarce.android.frencheducation.data.db.progress.room.ModuleDao
-import com.imprarce.android.frencheducation.data.db.progress.room.ModuleRepository
-import com.imprarce.android.frencheducation.data.db.progress.room.ModuleTasksDao
-import com.imprarce.android.frencheducation.data.db.progress.room.ModuleTasksRepository
+import com.imprarce.android.frencheducation.data.db.module_progress.room.ModuleDao
+import com.imprarce.android.frencheducation.data.db.module.room.ModuleRepository
+import com.imprarce.android.frencheducation.data.db.module_progress.room.ModuleTasksDao
+import com.imprarce.android.frencheducation.data.db.module_tasks.room.ModuleTasksRepository
+import com.imprarce.android.frencheducation.data.db.module_progress.ProgressRepositoryImpl
+import com.imprarce.android.frencheducation.data.db.module_progress.room.ModuleProgressDao
+import com.imprarce.android.frencheducation.data.db.module_progress.room.ModuleProgressRepository
 import com.imprarce.android.frencheducation.data.db.task.TaskRepositoryImpl
 import com.imprarce.android.frencheducation.data.db.task.room.TaskDao
 import com.imprarce.android.frencheducation.data.db.task.room.TaskRepository
@@ -40,7 +43,7 @@ class DatabaseModule {
             context,
             AppDatabase::class.java,
             "frenchDb.db"
-        ).addMigrations(MIGRATION_1_2)
+        ).addMigrations(MIGRATION_2_3)
             .build()
     }
 
@@ -105,8 +108,18 @@ class DatabaseModule {
         return database.taskCompletedDao()
     }
 
+    @Provides
+    fun provideModuleProgressRepository(moduleProgressDao: ModuleProgressDao) : ModuleProgressRepository{
+        return ProgressRepositoryImpl(moduleProgressDao)
+    }
+
+    @Provides
+    fun provideModuleProgressDao(database: AppDatabase): ModuleProgressDao {
+        return database.moduleProgressDao()
+    }
+
     companion object {
-        private val MIGRATION_1_2 = object : Migration(1, 2) {
+        private val MIGRATION_2_3 = object : Migration(2, 3) {
             override fun migrate(database: SupportSQLiteDatabase) {
             }
         }

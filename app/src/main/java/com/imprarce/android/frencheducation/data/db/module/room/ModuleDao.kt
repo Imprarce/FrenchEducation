@@ -1,4 +1,4 @@
-package com.imprarce.android.frencheducation.data.db.progress.room
+package com.imprarce.android.frencheducation.data.db.module_progress.room
 
 import androidx.room.Dao
 import androidx.room.Insert

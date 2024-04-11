@@ -1,12 +1,14 @@
 package com.imprarce.android.frencheducation.data.db.user.room
 
+import com.imprarce.android.frencheducation.data.db.ResponseRoom
+
 interface UserRepository {
-    suspend fun getAllUsers(): List<UserDbEntity>
-    suspend fun getUserByLogin(login: String): UserDbEntity?
-    suspend fun insertUser(user: UserDbEntity)
-    suspend fun getUserById(id_user: String) : UserDbEntity?
-    suspend fun updateUserName(id_user: String, name: String)
-    suspend fun updateUserPhoto(id_user: String, photoUrl: String)
-    suspend fun updateUser(user: UserDbEntity)
+    suspend fun getAllUsers(): ResponseRoom<List<UserDbEntity>>
+    suspend fun getUserByLogin(login: String): ResponseRoom<UserDbEntity?>
+    suspend fun insertUser(user: UserDbEntity): ResponseRoom<Unit>
+    suspend fun getUserById(id_user: String) : ResponseRoom<UserDbEntity?>
+    suspend fun updateUserName(id_user: String, name: String): ResponseRoom<Unit>
+    suspend fun updateUserPhoto(id_user: String, photoUrl: String): ResponseRoom<Unit>
+    suspend fun updateUser(user: UserDbEntity): ResponseRoom<Unit>
 
 }

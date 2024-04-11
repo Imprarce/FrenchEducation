@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.imprarce.android.frencheducation.R
@@ -17,7 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class DetailTaskFragment : Fragment() {
-    private val viewModel by viewModels<DetailModuleTaskViewModel>()
+    private val viewModel: DetailModuleTaskViewModel by activityViewModels()
     private var _binding: FragmentDetailTaskBinding? = null
     private val binding get() = _binding!!
     private lateinit var answer : String

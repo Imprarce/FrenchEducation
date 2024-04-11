@@ -1,8 +1,9 @@
 package com.imprarce.android.frencheducation.data.db.task.room
 
-interface TaskRepository {
-    suspend fun getAllTasks(): List<TaskDbEntity>
-    suspend fun insertTask(task: TaskDbEntity)
+import com.imprarce.android.frencheducation.data.db.ResponseRoom
 
-    suspend fun getTaskById(taskId: Int): TaskDbEntity
+interface TaskRepository {
+    suspend fun getAllTasks(): ResponseRoom<List<TaskDbEntity>>
+    suspend fun insertTask(task: TaskDbEntity): ResponseRoom<Unit>
+    suspend fun getTaskById(taskId: Int): ResponseRoom<TaskDbEntity?>
 }

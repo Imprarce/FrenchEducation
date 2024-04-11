@@ -1,6 +1,7 @@
 package com.imprarce.android.frencheducation.ui.greeting
 
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseUser
 import com.imprarce.android.frencheducation.data.api.ResponseFirebase
 import com.imprarce.android.frencheducation.data.api.repository.FirebaseRepository
+import com.imprarce.android.frencheducation.data.db.ResponseRoom
 import com.imprarce.android.frencheducation.data.db.user.room.UserDbEntity
 import com.imprarce.android.frencheducation.data.db.user.room.UserRepository
 import com.imprarce.android.frencheducation.utils.DateFormatUtil
@@ -57,11 +59,15 @@ class GreetingViewModel @Inject constructor(
         val currentUser = firebaseRepository.currentUser
         if (currentUser != null) {
             val id_user = currentUser.uid
-            if (userRepository.getUserById(id_user) == null) {
-                val name = firebaseRepository.getName()
-                val imageUrl = firebaseRepository.getPhotoUrl()
-                val data = DateFormatUtil.formatDate(currentUser.metadata?.creationTimestamp?.let { Date(it) })
-                userRepository.insertUser(UserDbEntity(id_user, "*****", currentUser.email ?: "", name, imageUrl, data))
+            when(userRepository.getUserById(id_user)){
+                is ResponseRoom.Failure -> {
+                    val name = firebaseRepository.getName()
+                    val imageUrl = firebaseRepository.getPhotoUrl()
+                    val data = DateFormatUtil.formatDate(currentUser.metadata?.creationTimestamp?.let { Date(it) })
+                    userRepository.insertUser(UserDbEntity(id_user, "*****", currentUser.email ?: "", name, imageUrl, data))
+                }
+                else -> {
+                }
             }
         }
     }
