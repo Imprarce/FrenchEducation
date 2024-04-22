@@ -29,10 +29,10 @@ class MainActivity : AppCompatActivity(), LogoutListener {
         navController.addOnDestinationChangedListener{ _, destination, _ ->
             when (destination.id) {
                 com.imprarce.android.feature_home.R.id.homeFragment -> bottomNavigationView.visibility = View.VISIBLE
-                R.id.communityFragment -> bottomNavigationView.visibility = View.VISIBLE
-                R.id.videoMenuFragment -> bottomNavigationView.visibility = View.VISIBLE
-                R.id.IELTSFragment -> bottomNavigationView.visibility = View.VISIBLE
-                R.id.dictionaryFragment -> bottomNavigationView.visibility = View.VISIBLE
+                com.imprarce.android.feature_community.R.id.communityFragment -> bottomNavigationView.visibility = View.VISIBLE
+                com.imprarce.android.feature_video.R.id.videoMenuFragment -> bottomNavigationView.visibility = View.VISIBLE
+                com.imprarce.android.feature_ielts.R.id.IELTSFragment -> bottomNavigationView.visibility = View.VISIBLE
+                com.imprarce.android.feature_dictionary.R.id.dictionaryFragment -> bottomNavigationView.visibility = View.VISIBLE
                 else -> bottomNavigationView.visibility = View.GONE
             }
         }

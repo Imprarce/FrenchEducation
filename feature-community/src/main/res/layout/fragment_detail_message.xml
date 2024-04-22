@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".detail.DetailMessageFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/custom_toolbar_with_back"
+            android:layout_marginTop="@dimen/value_8_dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayoutTextView"
+                android:layout_width="@dimen/value_0_dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/value_16_dp"
+                android:orientation="vertical"
+                android:padding="@dimen/value_16_dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0">
+
+                <com.mikhaellopez.circularimageview.CircularImageView
+                    android:id="@+id/icon_user"
+                    android:layout_width="@dimen/value_60_dp"
+                    android:layout_height="@dimen/value_60_dp"
+                    android:layout_marginStart="@dimen/value_16_dp"
+                    android:layout_marginTop="@dimen/value_16_dp"
+                    android:layout_marginBottom="@dimen/value_16_dp"
+                    android:src="@drawable/image_plug"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="@dimen/value_24_dp"
+                    android:layout_height="@dimen/value_24_dp"
+                    android:layout_marginLeft="@dimen/value_16_dp"
+                    android:src="@drawable/icon_thumbtack"
+                    app:layout_constraintStart_toEndOf="@+id/icon_user"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/title"
+                    style="@style/RecyclerViewStyleText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/value_8_dp"
+                    android:text="@string/plug"
+                    android:textSize="@dimen/value_18_sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/imageView"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/description"
+                    style="@style/RecyclerViewSmallText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/value_16_dp"
+                    android:layout_marginTop="@dimen/value_8_dp"
+                    android:fontFamily="sans-serif-light"
+                    android:text="@string/plug"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/icon_user"
+                    app:layout_constraintTop_toBottomOf="@+id/title" />
+
+                <TextView
+                    android:layout_width="@dimen/value_0_dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/value_32_dp"
+                    android:text="@string/example_community_text"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/icon_user" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/value_8_dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayoutTextView"
+                app:layout_constraintVertical_bias="0.5">
+
+                <ImageView
+                    android:id="@+id/arrow_up_rating"
+                    android:layout_width="@dimen/value_48_dp"
+                    android:layout_height="@dimen/value_48_dp"
+                    android:src="@drawable/arrow_up_rating"
+
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/value_60_dp"
+                    android:paddingRight="@dimen/value_60_dp"
+                    android:text="@string/_100"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/arrow_down_rating"
+                    app:layout_constraintStart_toEndOf="@id/arrow_up_rating"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/arrow_down_rating"
+                    android:layout_width="@dimen/value_48_dp"
+                    android:layout_height="@dimen/value_48_dp"
+                    android:src="@drawable/arrow_down_rating"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="@dimen/value_0_dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
+                tools:listitem="@layout/item_recycler_view_comments"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</ScrollView>

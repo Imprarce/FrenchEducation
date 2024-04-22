@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_ielts"
+    app:startDestination="@id/IELTSFragment">
+
+    <fragment
+        android:id="@+id/IELTSFragment"
+        android:name="com.imprarce.android.feature_ielts.IELTSFragment"
+        android:label="fragment_i_e_l_t_s"
+        tools:layout="@layout/fragment_i_e_l_t_s" />
+</navigation>

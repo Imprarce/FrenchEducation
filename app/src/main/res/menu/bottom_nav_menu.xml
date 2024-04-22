@@ -5,19 +5,19 @@
         android:title="@string/home"
         android:icon="@drawable/icon_home"/>
     <item
-        android:id="@+id/communityFragment"
+        android:id="@+id/nav_community"
         android:title="@string/community"
         android:icon="@drawable/icon_community" />
     <item
-        android:id="@+id/videoMenuFragment"
+        android:id="@+id/nav_video"
         android:title="@string/video"
         android:icon="@drawable/icon_video"/>
     <item
-        android:id="@+id/IELTSFragment"
+        android:id="@+id/nav_ielts"
         android:title="@string/ielts"
         android:icon="@drawable/icon_test"/>
     <item
-        android:id="@+id/dictionaryFragment"
+        android:id="@+id/nav_dictionary"
         android:title="@string/dictionary"
         android:icon="@drawable/icon_dictionary"/>
 </menu>

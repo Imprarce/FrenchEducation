@@ -92,8 +92,13 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
+
+    implementation project(':feature-ielts')
+    implementation project(':feature-video')
     implementation project(':feature-home')
     implementation project(':feature-login')
+    implementation project(':feature-dictionary')
+    implementation project(':feature-community')
     implementation project(':network')
     implementation project(':local')
 }

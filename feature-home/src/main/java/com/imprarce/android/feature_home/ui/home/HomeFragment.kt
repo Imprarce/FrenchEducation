@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
+import android.widget.RelativeLayout
 import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -18,7 +20,9 @@ import com.imprarce.android.feature_home.ui.adapters.FilterAdapter
 import com.imprarce.android.feature_home.ui.adapters.ModuleListAdapter
 import com.imprarce.android.feature_home.ui.detailhome.interfaces.OnModuleClickListener
 import com.imprarce.android.local.module.ModuleListItem
+import com.mikhaellopez.circularimageview.CircularImageView
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment(), OnModuleClickListener {
@@ -44,7 +48,9 @@ class HomeFragment : BaseFragment(), OnModuleClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.customProgressBar.root.visibility = View.VISIBLE
+        val customProgressBar = view.findViewById<RelativeLayout>(R.id.customProgressBar)
+
+        customProgressBar.visibility = View.VISIBLE
         binding.overlay.visibility = View.VISIBLE
 
         mainViewModel.userFromRoom.observe(viewLifecycleOwner){user ->
@@ -57,16 +63,17 @@ class HomeFragment : BaseFragment(), OnModuleClickListener {
 
         viewModel.moduleListItems.observe(viewLifecycleOwner){response ->
             setAdapter(response)
-            binding.customProgressBar.root.visibility = View.GONE
+            customProgressBar.visibility = View.GONE
             binding.overlay.visibility = View.GONE
         }
 
         mainViewModel.userFromRoom.observe(viewLifecycleOwner){ url ->
             if(url != null) {
+                val iconUser = view.findViewById<CircularImageView>(R.id.icon_user)
                 Glide.with(requireContext())
                     .load(url.imageUrl)
                     .placeholder(R.drawable.image_plug)
-                    .into(binding.toolbar.iconUser)
+                    .into(iconUser)
             }
         }
 
