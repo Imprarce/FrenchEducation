@@ -14,3 +14,7 @@ dependencyResolutionManagement {
 }
 rootProject.name = "FrenchEducation"
 include ':app'
+include ':network'
+include ':local'
+include ':feature-home'
+include ':feature-login'

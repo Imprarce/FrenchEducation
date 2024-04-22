@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.imprarce.android.frencheducation.com.imprarce.android.feature_login.GreetingFragment">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="@dimen/value_160_dp" />
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guide_line_vertical_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/value_24_dp"
+        app:layout_editor_absoluteY="@dimen/value_24_dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guide_line_vertical_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/value_24_dp"
+        app:layout_editor_absoluteY="@dimen/value_24_dp" />
+
+
+    <ImageView
+        android:id="@+id/logo_greeting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/value_60_dp"
+        style="@style/LogoStyle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayoutGreeting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guideline2">
+
+        <ImageView
+            android:id="@+id/left_pegas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/LeftPegasStyle"/>
+
+        <Space
+            android:layout_width="@dimen/value_0_dp"
+            android:layout_height="@dimen/value_0_dp"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:id="@+id/right_pegas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/RightPegasStyle" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/first_textView_greeting"
+        android:layout_width="@dimen/value_0_dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/welcome_text"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/guide_line_vertical_right"
+        app:layout_constraintStart_toStartOf="@+id/guide_line_vertical_left"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutGreeting" />
+
+    <TextView
+        android:id="@+id/second_textView_greeting"
+        android:layout_width="@dimen/value_0_dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/value_16_dp"
+        android:text="@string/greeting_about_prog_text"
+        android:textSize="@dimen/value_16_sp"
+        app:layout_constraintEnd_toStartOf="@+id/guide_line_vertical_right"
+        app:layout_constraintStart_toStartOf="@+id/guide_line_vertical_left"
+        app:layout_constraintTop_toBottomOf="@+id/first_textView_greeting" />
+
+    <Button
+        android:id="@+id/enter_button"
+        style="@style/ButtonEnterStyle"
+        android:layout_width="@dimen/value_0_dp"
+        android:layout_height="@dimen/value_48_dp"
+        android:background="@drawable/custom_button_greeting"
+        android:text="@string/enter"
+        app:layout_constraintEnd_toStartOf="@+id/guide_line_vertical_right"
+        app:layout_constraintStart_toStartOf="@+id/guide_line_vertical_left"
+        app:layout_constraintTop_toBottomOf="@+id/second_textView_greeting" />
+
+    <Button
+        android:id="@+id/reg_button"
+        style="@style/ButtonRegStyle"
+        android:layout_width="@dimen/value_0_dp"
+        android:layout_height="@dimen/value_48_dp"
+        android:background="@drawable/custom_button_greeting"
+        android:text="@string/registration"
+        app:layout_constraintEnd_toStartOf="@+id/guide_line_vertical_right"
+        app:layout_constraintStart_toStartOf="@+id/guide_line_vertical_left"
+        app:layout_constraintTop_toBottomOf="@+id/enter_button" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,8 +6,8 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.database
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import com.imprarce.android.frencheducation.data.api.repository.FirebaseRepository
-import com.imprarce.android.frencheducation.data.api.repository.FirebaseRepositoryImpl
+import com.imprarce.android.network.repository.FirebaseRepository
+import com.imprarce.android.network.repository.FirebaseRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,14 +18,15 @@ import dagger.hilt.components.SingletonComponent
 class FirebaseModule {
 
     @Provides
-    fun provideFirebaseAuth() : FirebaseAuth = FirebaseAuth.getInstance()
+    fun provideFirebaseAuth(): FirebaseAuth = FirebaseAuth.getInstance()
 
     @Provides
-    fun provideAuthRepository(firebaseRepositoryImpl: FirebaseRepositoryImpl): FirebaseRepository = firebaseRepositoryImpl
+    fun provideAuthRepository(firebaseRepositoryImpl: FirebaseRepositoryImpl): FirebaseRepository =
+        firebaseRepositoryImpl
 
     @Provides
-    fun provideFirebaseReference() : DatabaseReference = Firebase.database.reference.child("user_data")
+    fun provideFirebaseReference(): DatabaseReference = Firebase.database.reference.child("user_data")
 
     @Provides
-    fun provideFirebaseStorage() : StorageReference = FirebaseStorage.getInstance().reference
+    fun provideFirebaseStorage(): StorageReference = FirebaseStorage.getInstance().reference
 }
