@@ -22,15 +22,6 @@
         app:layout_constraintGuide_begin="@dimen/value_16_dp"
         app:layout_editor_absoluteY="@dimen/value_16_dp" />
 
-
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/custom_toolbar"
-        android:layout_marginTop="@dimen/value_8_dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_cards_main"
         android:layout_width="@dimen/value_0_dp"
@@ -38,10 +29,11 @@
         android:paddingTop="@dimen/value_8_dp"
         android:paddingBottom="@dimen/value_8_dp"
         android:scrollbars="horizontal"
+        android:layout_marginTop="@dimen/value_60_dp"
         app:layout_constraintBottom_toTopOf="@+id/guide_line_horizontal_bottom_of_top_recycler_view"
         app:layout_constraintEnd_toStartOf="@+id/guide_line_vertical_right"
         app:layout_constraintStart_toStartOf="@+id/guide_line_vertical_left"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintTop_toTopOf="parent"
         tools:listitem="@layout/item_for_cards_on_top_recyclerview" />
 
     <androidx.constraintlayout.widget.Guideline

@@ -9,5 +9,22 @@
         android:id="@+id/communityFragment"
         android:name="com.imprarce.android.feature_community.CommunityFragment"
         android:label="fragment_community"
-        tools:layout="@layout/fragment_community" />
+        tools:layout="@layout/fragment_community" >
+        <action
+            android:id="@+id/action_communityFragment_to_addMessageFragment"
+            app:destination="@id/addMessageFragment" />
+        <action
+            android:id="@+id/action_communityFragment_to_detailMessageFragment"
+            app:destination="@id/detailMessageFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/addMessageFragment"
+        android:name="com.imprarce.android.feature_community.createmessage.AddMessageFragment"
+        android:label="fragment_add_message"
+        tools:layout="@layout/fragment_add_message" />
+    <fragment
+        android:id="@+id/detailMessageFragment"
+        android:name="com.imprarce.android.feature_community.detail.DetailMessageFragment"
+        android:label="fragment_detail_message"
+        tools:layout="@layout/fragment_detail_message" />
 </navigation>

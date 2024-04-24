@@ -6,6 +6,9 @@ import android.content.Context
 import com.imprarce.android.frencheducation.data.db.module_progress.room.ModuleDao
 import com.imprarce.android.frencheducation.data.db.module_progress.room.ModuleTasksDao
 import com.imprarce.android.local.AppDatabase
+import com.imprarce.android.local.community.CommunityRepositoryImpl
+import com.imprarce.android.local.community.room.CommunityDao
+import com.imprarce.android.local.community.room.CommunityRepository
 import com.imprarce.android.local.dictionary.DictionaryRepositoryImpl
 import com.imprarce.android.local.dictionary.room.DictionaryDao
 import com.imprarce.android.local.dictionary.room.DictionaryRepository
@@ -107,6 +110,16 @@ class DatabaseModule {
     @Provides
     fun provideModuleProgressDao(database: AppDatabase): ModuleProgressDao {
         return database.moduleProgressDao()
+    }
+
+    @Provides
+    fun provideCommunityRepository(communityDao: CommunityDao): CommunityRepository {
+        return CommunityRepositoryImpl(communityDao)
+    }
+
+    @Provides
+    fun provideCommunityDao(database: AppDatabase): CommunityDao {
+        return database.communityDao()
     }
 
 }

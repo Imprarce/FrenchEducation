@@ -35,15 +35,6 @@ class VideoMenuFragment : Fragment() {
         val adapter = FilterAdapter(filterItems)
         binding.recyclerViewFilters.adapter = adapter
 
-        mainViewModel.userFromRoom.observe(viewLifecycleOwner){ url ->
-            if(url != null) {
-                val iconUser = view.findViewById<CircularImageView>(R.id.icon_user)
-                Glide.with(requireContext())
-                    .load(url.imageUrl)
-                    .placeholder(R.drawable.image_plug_2)
-                    .into(iconUser)
-            }
-        }
     }
 
     override fun onDestroyView() {

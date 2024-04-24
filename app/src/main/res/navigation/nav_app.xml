@@ -12,4 +12,12 @@
     <include app:graph="@navigation/nav_community" />
     <include app:graph="@navigation/nav_ielts" />
     <include app:graph="@navigation/nav_video" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.imprarce.android.frencheducation.ui.settings_profile.SettingsFragment"
+        android:label="SettingsFragment" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.imprarce.android.frencheducation.ui.settings_profile.ProfileFragment"
+        android:label="ProfileFragment" />
 </navigation>

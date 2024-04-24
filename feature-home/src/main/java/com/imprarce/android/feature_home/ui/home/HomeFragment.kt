@@ -4,15 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
 import android.widget.RelativeLayout
 import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
-import com.imprarce.android.feature_home.BaseFragment
 import com.imprarce.android.feature_home.R
 import com.imprarce.android.feature_home.databinding.FragmentHomeBinding
 import com.imprarce.android.feature_home.ui.MainViewModel
@@ -20,12 +18,11 @@ import com.imprarce.android.feature_home.ui.adapters.FilterAdapter
 import com.imprarce.android.feature_home.ui.adapters.ModuleListAdapter
 import com.imprarce.android.feature_home.ui.detailhome.interfaces.OnModuleClickListener
 import com.imprarce.android.local.module.ModuleListItem
-import com.mikhaellopez.circularimageview.CircularImageView
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class HomeFragment : BaseFragment(), OnModuleClickListener {
+class HomeFragment : Fragment(), OnModuleClickListener {
     private val mainViewModel: MainViewModel by activityViewModels()
 
     private val viewModel by viewModels<HomeViewModel>()
@@ -65,16 +62,6 @@ class HomeFragment : BaseFragment(), OnModuleClickListener {
             setAdapter(response)
             customProgressBar.visibility = View.GONE
             binding.overlay.visibility = View.GONE
-        }
-
-        mainViewModel.userFromRoom.observe(viewLifecycleOwner){ url ->
-            if(url != null) {
-                val iconUser = view.findViewById<CircularImageView>(R.id.icon_user)
-                Glide.with(requireContext())
-                    .load(url.imageUrl)
-                    .placeholder(R.drawable.image_plug)
-                    .into(iconUser)
-            }
         }
 
         val adapter = FilterAdapter(filterItems)

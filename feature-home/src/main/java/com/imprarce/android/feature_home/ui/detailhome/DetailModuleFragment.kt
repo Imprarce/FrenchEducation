@@ -63,12 +63,6 @@ class DetailModuleFragment : Fragment(), OnTaskClickListener {
         super.onViewCreated(view, savedInstanceState)
 
 
-        binding.toolbar.nameFragment.text = "Название модуля"
-
-        binding.toolbar.backArrow.setOnClickListener {
-            findNavController().popBackStack()
-        }
-
         viewModel.taskCompletedList.observe(viewLifecycleOwner) { completedTasks ->
             viewModel.taskListItems.observe(viewLifecycleOwner) { taskList ->
                 val taskListsContainer = TaskListsContainer(taskList, completedTasks)

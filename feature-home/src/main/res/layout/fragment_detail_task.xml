@@ -22,22 +22,14 @@
         app:layout_constraintGuide_begin="@dimen/value_16_dp"
         app:layout_editor_absoluteY="@dimen/value_16_dp" />
 
-    <include
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/value_8_dp"
-        layout="@layout/custom_toolbar_with_back"
-        app:layout_constraintTop_toTopOf="parent"/>
-
     <TextView
         android:id="@+id/task_text"
         android:layout_width="@dimen/value_0_dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/value_32_dp"
+        android:layout_marginTop="@dimen/value_60_dp"
         app:layout_constraintEnd_toStartOf="@+id/guide_line_vertical_right"
         app:layout_constraintStart_toStartOf="@+id/guide_line_vertical_left"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/task_answer"

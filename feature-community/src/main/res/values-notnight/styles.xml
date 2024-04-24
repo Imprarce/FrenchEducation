@@ -9,7 +9,6 @@
         <item name="android:backgroundTint">@color/light_white_edit_text_reg</item>
         <item name="android:textSize">@dimen/value_16_sp</item>
         <item name="android:padding">@dimen/value_10_dp</item>
-        <item name="android:singleLine">true</item>
     </style>
 
     <style name="ButtonEnterStyle">
@@ -79,5 +78,13 @@
 
     <style name="CommunityBackgroundStyle">
         <item name="android:background">@color/light_purple_card</item>
+    </style>
+
+    <style name="CircleStyle">
+        <item name="android:tint">@color/light_purple</item>
+    </style>
+
+    <style name="BackgroundStyle">
+        <item name="android:background">@color/light_background</item>
     </style>
 </resources>

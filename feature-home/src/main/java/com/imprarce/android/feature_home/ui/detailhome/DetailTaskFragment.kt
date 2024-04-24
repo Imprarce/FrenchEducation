@@ -49,13 +49,9 @@ class DetailTaskFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        binding.toolbar.backArrow.setOnClickListener {
-            findNavController().popBackStack()
-        }
 
         viewModel.taskItem.observe(viewLifecycleOwner){response ->
             binding.taskText.text = response.task.exercise
-            binding.toolbar.nameFragment.text = response.task.taskName
             answer = response.task.answer
         }
 

@@ -45,15 +45,6 @@ class DictionaryFragment : Fragment() {
             setAdapter(response)
         }
 
-        mainViewModel.userFromRoom.observe(viewLifecycleOwner) { url ->
-            if(url != null) {
-                val iconUser = view.findViewById<CircularImageView>(R.id.icon_user)
-                Glide.with(requireContext())
-                    .load(url.imageUrl)
-                    .placeholder(R.drawable.image_plug)
-                    .into(iconUser)
-            }
-        }
     }
 
     private fun setAdapter(dictionaryList: List<DictionaryListItem>) {
