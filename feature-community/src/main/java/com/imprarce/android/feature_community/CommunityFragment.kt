@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -12,13 +13,14 @@ import com.bumptech.glide.Glide
 import com.imprarce.android.feature_community.adapters.CommunityAdapter
 import com.imprarce.android.feature_community.adapters.FilterAdapter
 import com.imprarce.android.feature_community.databinding.FragmentCommunityBinding
+import com.imprarce.android.feature_community.helpers.OnCommunityItemClickListener
 import com.imprarce.android.feature_community.helpers.OnDeleteItemClickListener
 import com.imprarce.android.local.community.CommunityItem
 import com.mikhaellopez.circularimageview.CircularImageView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class CommunityFragment : Fragment(), OnDeleteItemClickListener<CommunityItem> {
+class CommunityFragment : Fragment(), OnDeleteItemClickListener<CommunityItem>, OnCommunityItemClickListener {
     private val mainViewModel: MainViewModel by activityViewModels()
 
     private var _binding: FragmentCommunityBinding? = null
@@ -60,7 +62,7 @@ class CommunityFragment : Fragment(), OnDeleteItemClickListener<CommunityItem> {
     }
 
     private fun setAdapter(communityList: List<CommunityItem>, userId: String) {
-        val adapter = CommunityAdapter(communityList, userId, this)
+        val adapter = CommunityAdapter(requireContext(), communityList, userId, this, this)
         binding.recyclerViewMain.adapter = adapter
         binding.recyclerViewMain.layoutManager = LinearLayoutManager(requireContext())
     }
@@ -69,8 +71,14 @@ class CommunityFragment : Fragment(), OnDeleteItemClickListener<CommunityItem> {
         mainViewModel.deleteCommunity(item)
     }
 
+    override fun onItemClicked(item: CommunityItem) {
+        val bundle = bundleOf("id_community" to item.id_community, "user_id" to userId)
+        findNavController().navigate(R.id.action_communityFragment_to_detailMessageFragment, bundle)
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
 }

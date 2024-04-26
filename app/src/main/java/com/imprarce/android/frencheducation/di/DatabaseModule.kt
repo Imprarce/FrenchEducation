@@ -6,6 +6,9 @@ import android.content.Context
 import com.imprarce.android.frencheducation.data.db.module_progress.room.ModuleDao
 import com.imprarce.android.frencheducation.data.db.module_progress.room.ModuleTasksDao
 import com.imprarce.android.local.AppDatabase
+import com.imprarce.android.local.comment.CommentRepositoryImpl
+import com.imprarce.android.local.comment.room.CommentDao
+import com.imprarce.android.local.comment.room.CommentRepository
 import com.imprarce.android.local.community.CommunityRepositoryImpl
 import com.imprarce.android.local.community.room.CommunityDao
 import com.imprarce.android.local.community.room.CommunityRepository
@@ -122,4 +125,13 @@ class DatabaseModule {
         return database.communityDao()
     }
 
+    @Provides
+    fun provideCommentRepository(commentDao: CommentDao): CommentRepository {
+        return CommentRepositoryImpl(commentDao)
+    }
+
+    @Provides
+    fun provideCommentDao(database: AppDatabase): CommentDao {
+        return database.commentDao()
+    }
 }

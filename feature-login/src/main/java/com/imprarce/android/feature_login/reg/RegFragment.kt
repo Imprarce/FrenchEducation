@@ -12,6 +12,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.imprarce.android.feature_login.GreetingViewModel
 import com.imprarce.android.feature_login.databinding.FragmentRegBinding
+import com.imprarce.android.feature_login.helpers.SignUpState
 import com.imprarce.android.network.ResponseFirebase
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -42,17 +43,17 @@ class RegFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.signUpLiveData.observe(viewLifecycleOwner) { response ->
-            when (response) {
-                is ResponseFirebase.Success -> {
+        viewModel.signUpState.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is SignUpState.Success -> {
                     val uri = Uri.parse("myApp://feature-home")
                     navController.navigate(uri)
                 }
-                is ResponseFirebase.Loading -> {
+                is SignUpState.Loading -> {
 
                 }
-                is ResponseFirebase.Failure -> {
-                    Toast.makeText(context, response.exception.message, Toast.LENGTH_LONG).show()
+                is SignUpState.Error  -> {
+                    Toast.makeText(context, state.message, Toast.LENGTH_LONG).show()
                 }
                 else -> {}
             }

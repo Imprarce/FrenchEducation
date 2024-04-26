@@ -14,8 +14,13 @@ class CommunityRepositoryImpl(private val communityDao: CommunityDao) : Communit
         communityDao.insertCommunity(community)
     }
 
-    override suspend fun getCommunityById(id: Int): CommunityDbEntity? {
-        return communityDao.getCommunityById(id)
+    override suspend fun getCommunityById(id: Int): ResponseRoom<CommunityDbEntity?> {
+        return try{
+            val response = communityDao.getCommunityById(id)
+            ResponseRoom.Success(response)
+        } catch (e: Exception){
+            ResponseRoom.Failure(e)
+        }
     }
 
     override suspend fun getAllCommunities(): ResponseRoom<List<CommunityDbEntity>> {

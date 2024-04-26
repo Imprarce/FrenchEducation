@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:maxHeight="@dimen/value_120_dp"
+    android:layout_height="@dimen/value_200_dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginTop="@dimen/value_16_dp"
-    android:background="@color/dark_purple"
-    style="@style/RecyclerViewBackgroundStyle">
+    android:background="@drawable/custom_rectangle_community">
 
     <com.mikhaellopez.circularimageview.CircularImageView
         android:id="@+id/icon_user"
         android:layout_width="@dimen/value_60_dp"
         android:layout_height="@dimen/value_60_dp"
+        app:layout_constraintVertical_bias="0.1"
         android:layout_marginTop="@dimen/value_16_dp"
         android:layout_marginStart="@dimen/value_16_dp"
         android:layout_marginBottom="@dimen/value_16_dp"
@@ -24,17 +23,19 @@
         android:id="@+id/constraintLayoutTextView"
         android:layout_width="@dimen/value_0_dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/value_16_dp"
+        android:layout_marginTop="@dimen/value_16_dp"
         android:orientation="vertical"
         android:paddingStart="@dimen/value_16_dp"
         android:paddingBottom="@dimen/value_16_dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/linearLayoutRating"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayoutRating"
+        app:layout_constraintEnd_toStartOf="@+id/delete_icon"
         app:layout_constraintStart_toEndOf="@+id/icon_user"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.1">
 
         <ImageView
             android:id="@+id/imageView"
+            style="@style/ImageViewStyle"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@drawable/icon_thumbtack"
@@ -56,7 +57,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/description"
+            android:id="@+id/create_time"
             style="@style/RecyclerViewSmallText"
             android:layout_width="@dimen/value_0_dp"
             android:layout_height="wrap_content"
@@ -68,6 +69,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/title" />
 
+        <TextView
+            android:id="@+id/change_time"
+            style="@style/RecyclerViewSmallText"
+            android:layout_width="@dimen/value_0_dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/value_4_dp"
+            android:fontFamily="sans-serif-light"
+            android:maxHeight="@dimen/value_32_dp"
+            android:text="@string/plug"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/create_time" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
@@ -76,7 +90,9 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:orientation="horizontal"
-        android:layout_marginRight="@dimen/value_16_dp"
+        app:layout_constraintVertical_bias="1.0"
+        android:layout_marginRight="@dimen/value_32_dp"
+        android:layout_marginBottom="@dimen/value_16_dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/linearLayoutView"
         app:layout_constraintTop_toTopOf="parent">
@@ -104,7 +120,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginRight="@dimen/value_16_dp"
+        app:layout_constraintVertical_bias="1.0"
+        android:layout_marginBottom="@dimen/value_16_dp"
+        android:layout_marginRight="@dimen/value_32_dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -112,16 +130,17 @@
         <ImageView
             android:id="@+id/image_eye"
             style="@style/ImageViewStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/value_24_dp"
+            android:layout_height="@dimen/value_32_dp"
             android:src="@drawable/icon_eye"
             android:layout_marginRight="@dimen/value_8_dp"/>
 
         <TextView
-            android:id="@+id/pizza_text"
+            android:id="@+id/view_number"
             style="@style/RecyclerViewStyleText"
+            android:gravity="center_vertical"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:fontFamily="sans-serif-light"
             android:text="@string/_0" />
 
@@ -132,7 +151,9 @@
         android:layout_width="@dimen/value_48_dp"
         android:layout_height="@dimen/value_48_dp"
         android:src="@drawable/icon_delete"
-        android:visibility="gone"
+        style="@style/ImageViewStyle"
+        android:visibility="visible"
+        app:layout_constraintVertical_bias="0.1"
         android:layout_marginRight="@dimen/value_8_dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayoutView"
         app:layout_constraintEnd_toEndOf="parent"

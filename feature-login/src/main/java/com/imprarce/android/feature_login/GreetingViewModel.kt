@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseUser
+import com.imprarce.android.feature_login.helpers.SignUpState
 import com.imprarce.android.feature_login.utils.DateFormatUtil
 import com.imprarce.android.local.ResponseRoom
 import com.imprarce.android.local.user.room.UserDbEntity
@@ -29,6 +30,9 @@ class GreetingViewModel @Inject constructor(
     private val _signUpLiveData = MutableLiveData<ResponseFirebase<FirebaseUser>?>(null)
     val signUpLiveData: LiveData<ResponseFirebase<FirebaseUser>?> = _signUpLiveData
 
+    private val _signUpState = MutableLiveData<SignUpState>(null)
+    var signUpState: LiveData<SignUpState> = _signUpState
+
     val currentUser: FirebaseUser?
         get() = firebaseRepository.currentUser
 
@@ -37,7 +41,7 @@ class GreetingViewModel @Inject constructor(
             _loginLiveData.value = ResponseFirebase.Success(firebaseRepository.currentUser!!)
             onCleared()
         }
-        Log.d("GreetingViewModel", "ViewModel created")
+        Log.d("GreetingViewModel", "GreetingViewModel created")
     }
 
     fun login(email: String, password: String) = viewModelScope.launch {
@@ -48,31 +52,50 @@ class GreetingViewModel @Inject constructor(
     }
 
     fun signUp(email: String, password: String) = viewModelScope.launch {
-        _signUpLiveData.value = ResponseFirebase.Loading
+        _signUpState.value = SignUpState.Loading
         val result = firebaseRepository.signUp(email, password)
-        _signUpLiveData.value = result
-        addCurrentUserToRoomIfNotExists()
-    }
-
-    private fun addCurrentUserToRoomIfNotExists() = viewModelScope.launch {
-        val currentUser = firebaseRepository.currentUser
-        if (currentUser != null) {
-            val id_user = currentUser.uid
-            when(userRepository.getUserById(id_user)){
-                is ResponseRoom.Failure -> {
-                    val name = firebaseRepository.getName()
-                    val imageUrl = firebaseRepository.getPhotoUrl()
-                    val data = DateFormatUtil.formatDate(currentUser.metadata?.creationTimestamp?.let { Date(it) })
-                    userRepository.insertUser(UserDbEntity(id_user, "*****", currentUser.email ?: "", name, imageUrl, data))
-                }
-                else -> {
-                }
+        if (result is ResponseFirebase.Success) {
+            val addUserResult = addCurrentUserToRoomIfNotExists()
+            if (addUserResult is ResponseRoom.Success) {
+                _signUpState.value = SignUpState.Success
+            } else {
+                _signUpState.value = SignUpState.Error("Failed to add user to Room")
+            }
+        } else {
+            _signUpState.value = when (result) {
+                is ResponseFirebase.Failure -> SignUpState.Error(result.exception.message ?: "Unknown error")
+                is ResponseFirebase.Loading -> SignUpState.Idle
+                else -> SignUpState.Error("Unknown error")
             }
         }
     }
 
+    private suspend fun addCurrentUserToRoomIfNotExists(): ResponseRoom<Unit> {
+        val currentUser = firebaseRepository.currentUser
+        if (currentUser != null) {
+            val id_user = currentUser.uid
+            when (val response = userRepository.getUserById(id_user)) {
+                is ResponseRoom.Failure -> {
+                    val name = firebaseRepository.getName()
+                    val imageUrl = firebaseRepository.getPhotoUrl()
+                    val data = DateFormatUtil.formatDate(currentUser.metadata?.creationTimestamp?.let { Date(it) })
+                    val insertResult = userRepository.insertUser(UserDbEntity(id_user, "*****", currentUser.email ?: "", name, imageUrl, data))
+                    if (insertResult is ResponseRoom.Success) {
+                        return ResponseRoom.Success(Unit)
+                    } else {
+                        return ResponseRoom.Failure(Exception("Failed to insert user into Room"))
+                    }
+                }
+                else -> {
+                    return ResponseRoom.Success(Unit)
+                }
+            }
+        }
+        return ResponseRoom.Failure(Exception("Current user is null"))
+    }
+
     override fun onCleared() {
         super.onCleared()
-        Log.d("GreetingViewModel", "ViewModel destroyed")
+        Log.d("GreetingViewModel", "GreetingViewModel destroyed")
     }
 }

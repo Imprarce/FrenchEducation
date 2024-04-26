@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.imprarce.android.feature_home.ui.ProfileFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guide_line_vertical_right"
@@ -22,24 +21,17 @@
         app:layout_constraintGuide_begin="@dimen/value_16_dp"
         app:layout_editor_absoluteY="@dimen/value_16_dp" />
 
-    <include
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/value_8_dp"
-        layout="@layout/custom_toolbar_with_back_settings_prof"
-        app:layout_constraintTop_toTopOf="parent"/>
 
 
     <com.mikhaellopez.circularimageview.CircularImageView
         android:id="@+id/photo"
         android:layout_width="@dimen/value_240_dp"
         android:layout_height="@dimen/value_240_dp"
-        android:layout_marginTop="@dimen/value_32_dp"
+        android:layout_marginTop="@dimen/value_80_dp"
         android:src="@drawable/image_plug"
         app:layout_constraintEnd_toStartOf="@+id/guide_line_vertical_right"
         app:layout_constraintStart_toStartOf="@+id/guide_line_vertical_left"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:id="@+id/layout_name"

@@ -87,4 +87,9 @@
     <style name="BackgroundStyle">
         <item name="android:background">@color/light_background</item>
     </style>
+
+    <style name="EditTextMessageStyle">
+        <item name="android:textSize">@dimen/value_16_sp</item>
+        <item name="android:padding">@dimen/value_10_dp</item>
+    </style>
 </resources>

@@ -14,6 +14,32 @@
         android:layout_marginEnd="@dimen/value_8_dp">
 
         <ImageButton
+            android:id="@+id/back_arrow"
+            style="@style/ImageViewStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/colorPrimary"
+            android:src="@drawable/arrow_back"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/name_fragment"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/name_fragment"
+            android:textSize="@dimen/value_24_sp"
+            android:gravity="center"
+            android:paddingEnd="@dimen/value_16_dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/back_arrow"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
             android:id="@+id/settingsButton"
             style="@style/ImageViewStyle"
             android:background="?android:attr/colorPrimary"

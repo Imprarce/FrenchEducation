@@ -56,7 +56,6 @@ class SettingsFragment : Fragment() {
             viewModel.changePhoto(imageUri)
         }
 
-        binding.toolbar.nameFragment.text = "Настройки"
         binding.nightTheme.text = if (checkTheme(requireContext())) "Вкл" else "Выкл"
 
         binding.logOutButton.setOnClickListener {
@@ -64,10 +63,6 @@ class SettingsFragment : Fragment() {
             logoutListener?.onLogout()
         }
 
-
-        binding.toolbar.backArrow.setOnClickListener {
-            findNavController().popBackStack()
-        }
 
         viewModel.userFromRoom.observe(viewLifecycleOwner) { response ->
             response?.let {

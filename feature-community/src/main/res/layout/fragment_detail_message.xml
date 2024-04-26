@@ -3,18 +3,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="@dimen/value_60_dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".detail.DetailMessageFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="@dimen/value_0_dp">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/value_60_dp"
+            app:layout_constraintVertical_bias="0.0"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -27,66 +29,91 @@
                 android:layout_marginBottom="@dimen/value_16_dp"
                 android:orientation="vertical"
                 android:padding="@dimen/value_16_dp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0">
+                app:layout_constraintTop_toTopOf="parent">
 
-                <com.mikhaellopez.circularimageview.CircularImageView
-                    android:id="@+id/icon_user"
-                    android:layout_width="@dimen/value_60_dp"
-                    android:layout_height="@dimen/value_60_dp"
-                    android:layout_marginStart="@dimen/value_16_dp"
-                    android:layout_marginTop="@dimen/value_16_dp"
-                    android:layout_marginBottom="@dimen/value_16_dp"
-                    android:src="@drawable/image_plug"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="@dimen/value_24_dp"
-                    android:layout_height="@dimen/value_24_dp"
-                    android:layout_marginLeft="@dimen/value_16_dp"
-                    android:src="@drawable/icon_thumbtack"
-                    app:layout_constraintStart_toEndOf="@+id/icon_user"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/title"
-                    style="@style/RecyclerViewStyleText"
-                    android:layout_width="0dp"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout"
+                    android:layout_width="@dimen/value_0_dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/value_8_dp"
-                    android:text="@string/plug"
-                    android:textSize="@dimen/value_18_sp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/imageView"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.mikhaellopez.circularimageview.CircularImageView
+                        android:id="@+id/icon_user"
+                        android:layout_width="@dimen/value_60_dp"
+                        android:layout_height="@dimen/value_60_dp"
+                        android:layout_marginStart="@dimen/value_16_dp"
+                        android:layout_marginTop="@dimen/value_16_dp"
+                        android:layout_marginBottom="@dimen/value_16_dp"
+                        android:src="@drawable/image_plug"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="@dimen/value_24_dp"
+                        android:layout_height="@dimen/value_24_dp"
+                        android:layout_marginLeft="@dimen/value_16_dp"
+                        android:src="@drawable/icon_thumbtack"
+                        android:visibility="gone"
+                        app:layout_constraintStart_toEndOf="@+id/icon_user"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/title"
+                        style="@style/RecyclerViewStyleText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/value_8_dp"
+                        android:text="@string/plug"
+                        android:textSize="@dimen/value_18_sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/imageView"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/create_time"
+                        style="@style/RecyclerViewSmallText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/value_16_dp"
+                        android:layout_marginTop="@dimen/value_8_dp"
+                        android:fontFamily="sans-serif-light"
+                        android:text="@string/plug"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/icon_user"
+                        app:layout_constraintTop_toBottomOf="@+id/title" />
+
+                    <TextView
+                        android:id="@+id/change_time"
+                        style="@style/RecyclerViewSmallText"
+                        android:layout_width="@dimen/value_0_dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/value_16_dp"
+                        android:fontFamily="sans-serif-light"
+                        android:maxHeight="@dimen/value_32_dp"
+                        android:text="@string/plug"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/icon_user"
+                        app:layout_constraintTop_toBottomOf="@+id/create_time"
+                        app:layout_constraintVertical_bias="0.1" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
 
                 <TextView
                     android:id="@+id/description"
-                    style="@style/RecyclerViewSmallText"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/value_16_dp"
-                    android:layout_marginTop="@dimen/value_8_dp"
-                    android:fontFamily="sans-serif-light"
-                    android:text="@string/plug"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/icon_user"
-                    app:layout_constraintTop_toBottomOf="@+id/title" />
-
-                <TextView
                     android:layout_width="@dimen/value_0_dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/value_32_dp"
+                    android:layout_marginTop="@dimen/value_16_dp"
                     android:text="@string/example_community_text"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/icon_user" />
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -97,8 +124,7 @@
                 android:layout_marginTop="@dimen/value_8_dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayoutTextView"
-                app:layout_constraintVertical_bias="0.5">
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayoutTextView">
 
                 <ImageView
                     android:id="@+id/arrow_up_rating"
@@ -110,6 +136,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
+                    android:id="@+id/rating_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="@dimen/value_60_dp"
@@ -130,20 +157,63 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="@dimen/value_0_dp"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/value_16_dp"
+                android:text="@string/comments_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="@dimen/value_0_dp"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/value_16_dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
-                tools:listitem="@layout/item_recycler_view_comments"/>
+                app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/value_16_dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout3">
+
+            <EditText
+                android:id="@+id/message_comment"
+                style="@style/EditTextMessageStyle"
+                android:layout_width="@dimen/value_0_dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/create_message"
+                android:background="@drawable/custom_edit_text_comments"
+                android:layout_marginRight="@dimen/value_16_dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/send_button"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/send_button"
+                style="@style/ButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/send"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 
 </ScrollView>

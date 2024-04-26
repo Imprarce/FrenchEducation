@@ -6,7 +6,7 @@ interface CommunityRepository {
 
     suspend fun insertCommunity(community: CommunityDbEntity)
 
-    suspend fun getCommunityById(id: Int): CommunityDbEntity?
+    suspend fun getCommunityById(id: Int): ResponseRoom<CommunityDbEntity?>
 
     suspend fun getAllCommunities(): ResponseRoom<List<CommunityDbEntity>>
 

@@ -38,11 +38,6 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.toolbar.nameFragment.text = "Профиль"
-
-        binding.toolbar.backArrow.setOnClickListener {
-            findNavController().popBackStack()
-        }
 
         viewModel.userFromRoom.observe(viewLifecycleOwner) { response ->
             response?.let {

@@ -8,7 +8,10 @@ import androidx.room.Query
 @Dao
 interface CommentDao {
     @Query("SELECT * FROM comment")
-    suspend fun getAllTasks(): List<CommentDbEntity>
+    suspend fun getAllComments(): List<CommentDbEntity>
+
+    @Query("SELECT * FROM comment WHERE id_community = :communityId")
+    suspend fun getCommentsByCommunityId(communityId: Int): List<CommentDbEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertComment(comment: CommentDbEntity)
