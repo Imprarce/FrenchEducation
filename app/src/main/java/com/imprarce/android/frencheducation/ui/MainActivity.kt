@@ -1,12 +1,16 @@
 package com.imprarce.android.frencheducation.ui
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
@@ -17,6 +21,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.imprarce.android.frencheducation.R
 import com.imprarce.android.frencheducation.databinding.ActivityMainBinding
 import com.imprarce.android.frencheducation.ui.settings_profile.LogoutListener
+import com.imprarce.android.frencheducation.utils.fragmentNamesMap
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -46,7 +51,6 @@ class MainActivity : AppCompatActivity(), LogoutListener {
             }
         }
 
-
         if (viewModel.userFromRoom.value == null) {
             viewModel.getUser()
         }
@@ -74,6 +78,7 @@ class MainActivity : AppCompatActivity(), LogoutListener {
             when (destination.id) {
                 com.imprarce.android.feature_home.R.id.homeFragment -> {
                     bottomNavigationView.visibility = View.VISIBLE
+                    toolbar.visibility = View.VISIBLE
                     changeToolBar(true)
                 }
                 com.imprarce.android.feature_community.R.id.communityFragment -> {
@@ -94,7 +99,11 @@ class MainActivity : AppCompatActivity(), LogoutListener {
                 }
                 else -> {
                     bottomNavigationView.visibility = View.GONE
-                    changeToolBar(false)
+                    if(destination.id != com.imprarce.android.feature_login.R.id.greetingFragment) {
+                        changeToolBar(false)
+                    } else {
+                        toolbar.visibility = View.GONE
+                    }
                 }
             }
         }
@@ -113,7 +122,7 @@ class MainActivity : AppCompatActivity(), LogoutListener {
             binding.toolbar.backArrow.visibility = View.VISIBLE
             binding.toolbar.nameFragment.visibility = View.VISIBLE
 
-            binding.toolbar.nameFragment.text = navController.currentDestination?.navigatorName
+            binding.toolbar.nameFragment.text = fragmentNamesMap[navController.currentDestination?.id]
 
             binding.toolbar.iconUser.visibility = View.GONE
             binding.toolbar.settingsButton.visibility = View.GONE

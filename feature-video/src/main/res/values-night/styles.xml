@@ -28,6 +28,7 @@
 
     <style name="ButtonStyle">
         <item name="android:backgroundTint">@color/dark_gray</item>
+        <item name="android:textAllCaps">false</item>
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">16sp</item>
     </style>
@@ -81,5 +82,12 @@
         <item name="android:background">@color/dark_purple</item>
     </style>
 
+    <style name="CircleStyle">
+        <item name="android:tint">@color/blue</item>
+    </style>
+
+    <style name="BackgroundStyle">
+        <item name="android:background">@color/dark_background</item>
+    </style>
 
 </resources>

@@ -31,6 +31,9 @@ import com.imprarce.android.local.task_completed.room.TaskCompletedRepository
 import com.imprarce.android.local.user.UserRepositoryImpl
 import com.imprarce.android.local.user.room.UserDao
 import com.imprarce.android.local.user.room.UserRepository
+import com.imprarce.android.local.video.VideoRepositoryImpl
+import com.imprarce.android.local.video.room.VideoDao
+import com.imprarce.android.local.video.room.VideoRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -133,5 +136,15 @@ class DatabaseModule {
     @Provides
     fun provideCommentDao(database: AppDatabase): CommentDao {
         return database.commentDao()
+    }
+
+    @Provides
+    fun provideVideoRepository(videoDao: VideoDao): VideoRepository {
+        return VideoRepositoryImpl(videoDao)
+    }
+
+    @Provides
+    fun provideVideoDao(database: AppDatabase): VideoDao {
+        return database.videoDao()
     }
 }

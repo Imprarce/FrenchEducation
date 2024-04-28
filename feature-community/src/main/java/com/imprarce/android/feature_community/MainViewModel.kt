@@ -274,11 +274,6 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    //    val userId: String,
-    //    val userImage: String,
-    //    val userName: String,
-    //    val message: String
-
     override fun onCleared() {
         super.onCleared()
         Log.d("MainViewModel", "ViewModel destroyed")

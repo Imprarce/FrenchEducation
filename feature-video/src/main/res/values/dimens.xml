@@ -34,4 +34,7 @@
     <dimen name="value_90_dp">90dp</dimen>
     <dimen name="value_10_sp">10sp</dimen>
     <dimen name="value_24_sp">24sp</dimen>
+    <dimen name="value_400_dp">400dp</dimen>
+    <dimen name="value_250_dp">250dp</dimen>
+    <dimen name="value_500_dp">500dp</dimen>
 </resources>

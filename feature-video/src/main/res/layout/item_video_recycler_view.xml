@@ -3,60 +3,83 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="@dimen/value_500_dp"
     android:layout_marginTop="@dimen/value_16_dp"
-    android:background="@drawable/custom_rectangle_recycler_view"
-    style="@style/RecyclerViewBackgroundStyle">
+    android:background="@drawable/custom_rectangle_video">
 
     <ImageView
-        android:id="@+id/big_image"
-        android:layout_width="160dp"
-        android:layout_height="160dp"
-        android:layout_marginStart="@dimen/value_16_dp"
-        android:layout_marginBottom="@dimen/value_16_dp"
-        android:layout_marginTop="@dimen/value_16_dp"
+        android:id="@+id/video"
+        android:layout_width="@dimen/value_0_dp"
+        android:layout_height="@dimen/value_250_dp"
+        android:layout_margin="@dimen/value_16_dp"
         android:scaleType="centerCrop"
         android:src="@drawable/image_plug_2"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_text"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageButton
+        android:layout_width="@dimen/value_48_dp"
+        android:layout_height="@dimen/value_48_dp"
+        android:background="@null"
+        android:src="@drawable/icon_play"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/video"
+        app:layout_constraintEnd_toEndOf="@+id/video"
+        app:layout_constraintStart_toStartOf="@+id/video"
+        app:layout_constraintTop_toTopOf="@+id/video" />
+
+    <ImageView
+        android:id="@+id/delete_icon"
+        android:layout_width="@dimen/value_48_dp"
+        android:layout_height="@dimen/value_48_dp"
+        android:src="@drawable/icon_delete"
+        style="@style/ImageViewStyle"
+        android:visibility="gone"
+        app:layout_constraintVertical_bias="0.1"
+        android:layout_marginRight="@dimen/value_8_dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-
 
     <TextView
         android:id="@+id/title_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/example_text_video"
-        android:gravity="center"
         android:layout_marginTop="@dimen/value_16_dp"
-        android:textSize="16sp"
+        android:gravity="center"
+        android:text="@string/example_text_video"
+        android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/big_image"
+        app:layout_constraintEnd_toStartOf="@+id/delete_icon"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/description_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/value_16_dp"
+        app:layout_constraintVertical_bias="0.0"
         android:paddingStart="@dimen/value_16_dp"
-        android:layout_marginTop="@dimen/value_8_dp"
-        android:textSize="12sp"
+        android:paddingEnd="@dimen/value_16_dp"
         android:text="@string/example_description_video"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/big_image"
-        app:layout_constraintTop_toBottomOf="@+id/title_text" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/video" />
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/value_16_dp"
         android:orientation="horizontal"
+        android:layout_marginBottom="@dimen/value_16_dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/big_image"
-        app:layout_constraintTop_toBottomOf="@+id/description_text">
+        app:layout_constraintStart_toStartOf="parent">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -67,19 +90,20 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/image1"
+                android:id="@+id/view"
                 style="@style/ImageViewStyle"
-                android:layout_width="@dimen/value_16_dp"
-                android:layout_height="@dimen/value_16_dp"
+                android:layout_width="@dimen/value_32_dp"
+                android:layout_height="@dimen/value_32_dp"
                 android:src="@drawable/icon_eye" />
 
             <TextView
-                android:id="@+id/text1"
+                android:id="@+id/view_number"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/value_4_dp"
-                android:text="@string/_100"
-                android:textSize="@dimen/value_12_sp" />
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/value_8_dp"
+                android:gravity="center"
+                android:text="@string/_0"
+                android:textSize="@dimen/value_16_sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -91,19 +115,20 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/image2"
+                android:id="@+id/dislike"
                 style="@style/ImageViewStyle"
-                android:layout_width="@dimen/value_16_dp"
-                android:layout_height="@dimen/value_16_dp"
-                android:src="@drawable/icon_dislike" />
+                android:layout_width="@dimen/value_32_dp"
+                android:layout_height="@dimen/value_32_dp"
+                android:src="@drawable/icon_eye" />
 
             <TextView
-                android:id="@+id/text2"
+                android:id="@+id/rating_number"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/value_4_dp"
-                android:text="@string/_100"
-                android:textSize="@dimen/value_12_sp" />
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/value_8_dp"
+                android:gravity="center"
+                android:text="@string/_0"
+                android:textSize="@dimen/value_16_sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -115,19 +140,20 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/image3"
+                android:id="@+id/like"
                 style="@style/ImageViewStyle"
-                android:layout_width="@dimen/value_16_dp"
-                android:layout_height="@dimen/value_16_dp"
-                android:src="@drawable/icon_like" />
+                android:layout_width="@dimen/value_32_dp"
+                android:layout_height="@dimen/value_32_dp"
+                android:src="@drawable/icon_eye" />
 
             <TextView
-                android:id="@+id/text3"
+                android:id="@+id/like_number"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/value_4_dp"
-                android:text="@string/_100"
-                android:textSize="@dimen/value_12_sp" />
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/value_8_dp"
+                android:gravity="center"
+                android:text="@string/_0"
+                android:textSize="@dimen/value_16_sp" />
         </LinearLayout>
 
     </LinearLayout>

@@ -52,6 +52,7 @@ class SettingsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         imagePicker = ImagePicker(this)
+
         imagePicker.onImageSelected = { imageUri ->
             viewModel.changePhoto(imageUri)
         }

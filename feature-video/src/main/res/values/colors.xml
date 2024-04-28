@@ -13,6 +13,10 @@
     <color name="selected_category_background">#33FD3A69</color>
     <color name="green">#228B22</color>
 
+    <color name="blue">#4C95FE</color>
+    <color name="green_button">#3A633B</color>
+
+
 
     <!-- Светлая тема -->
     <color name="light_background">#E8EAF6</color>

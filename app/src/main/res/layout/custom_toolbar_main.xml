@@ -66,6 +66,7 @@
             android:layout_width="@dimen/value_48_dp"
             android:layout_height="@dimen/value_48_dp"
             android:src="@drawable/image_plug_2"
+            app:civ_border_width="@dimen/value_0_dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

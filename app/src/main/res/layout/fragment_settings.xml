@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.imprarce.android.feature_home.ui.settings.SettingsFragment">
+    android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guide_line_vertical_right"
@@ -79,7 +78,7 @@
             android:id="@+id/photo"
             android:layout_width="@dimen/value_48_dp"
             android:layout_height="@dimen/value_48_dp"
-
+            app:civ_border_width="@dimen/value_0_dp"
             android:src="@drawable/image_plug" />
 
 

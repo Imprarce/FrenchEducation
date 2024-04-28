@@ -9,5 +9,22 @@
         android:id="@+id/videoMenuFragment"
         android:name="com.imprarce.android.feature_video.VideoMenuFragment"
         android:label="fragment_video_menu"
-        tools:layout="@layout/fragment_video_menu" />
+        tools:layout="@layout/fragment_video_menu" >
+        <action
+            android:id="@+id/action_videoMenuFragment_to_addVideoFragment"
+            app:destination="@id/addVideoFragment" />
+        <action
+            android:id="@+id/action_videoMenuFragment_to_videoPlayerFragment"
+            app:destination="@id/videoPlayerFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/addVideoFragment"
+        android:name="com.imprarce.android.feature_video.add_video.AddVideoFragment"
+        android:label="fragment_add_video"
+        tools:layout="@layout/fragment_add_video" />
+    <fragment
+        android:id="@+id/videoPlayerFragment"
+        android:name="com.imprarce.android.feature_video.VideoPlayerFragment"
+        android:label="fragment_video_player"
+        tools:layout="@layout/fragment_video_player" />
 </navigation>

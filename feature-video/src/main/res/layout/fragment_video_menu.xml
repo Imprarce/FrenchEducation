@@ -38,11 +38,24 @@
         android:id="@+id/recycler_view_main"
         android:layout_width="@dimen/value_0_dp"
         android:layout_height="@dimen/value_0_dp"
+        android:layout_marginBottom="@dimen/value_60_dp"
         tools:listitem="@layout/item_video_recycler_view"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guide_line_vertical_right"
         app:layout_constraintStart_toStartOf="@+id/guide_line_vertical_left"
         app:layout_constraintTop_toBottomOf="@+id/recyclerView_filters" />
+
+    <ImageButton
+        android:id="@+id/addMessageButton"
+        style="@style/CircleStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/value_60_dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_add_event"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

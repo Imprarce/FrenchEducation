@@ -19,5 +19,9 @@ interface FirebaseRepository {
 
     suspend fun getPhotoUrl(): String
 
+    suspend fun loadVideo(id_video: Int, videoUri: Uri)
+
+    suspend fun getVideoUrl(id_video: Int): String
+
     fun logOut()
 }

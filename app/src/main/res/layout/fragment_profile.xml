@@ -29,6 +29,7 @@
         android:layout_height="@dimen/value_240_dp"
         android:layout_marginTop="@dimen/value_80_dp"
         android:src="@drawable/image_plug"
+        app:civ_border_width="@dimen/value_0_dp"
         app:layout_constraintEnd_toStartOf="@+id/guide_line_vertical_right"
         app:layout_constraintStart_toStartOf="@+id/guide_line_vertical_left"
         app:layout_constraintTop_toTopOf="parent" />

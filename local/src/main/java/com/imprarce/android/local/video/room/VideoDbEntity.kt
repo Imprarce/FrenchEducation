@@ -23,5 +23,7 @@ data class VideoDbEntity(
     @ColumnInfo(name = "rating") val rating: Int,
     @ColumnInfo(name = "view") val view: Int,
     @ColumnInfo(name = "description") val description: String,
-    @ColumnInfo(name = "title") val title: String
+    @ColumnInfo(name = "title") val title: String,
+    @ColumnInfo(name = "video_file") val videoFile: String,
+    @ColumnInfo(name = "image_url") val imageUrl: String?
 )

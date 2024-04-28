@@ -80,4 +80,13 @@
     <style name="CommunityBackgroundStyle">
         <item name="android:background">@color/light_purple_card</item>
     </style>
+
+
+    <style name="CircleStyle">
+        <item name="android:tint">@color/light_purple</item>
+    </style>
+
+    <style name="BackgroundStyle">
+        <item name="android:background">@color/light_background</item>
+    </style>
 </resources>

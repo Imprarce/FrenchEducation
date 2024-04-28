@@ -88,7 +88,7 @@ class FirebaseRepositoryImpl @Inject constructor(
 
     override suspend fun getPhotoUrl(): String {
 
-        var photoUrl: String = ""
+        var photoUrl = ""
         try {
             val storageRef = firebaseStorage.child("images/${currentUser!!.uid}")
             photoUrl = storageRef.downloadUrl.await().toString()
@@ -96,6 +96,27 @@ class FirebaseRepositoryImpl @Inject constructor(
             e.printStackTrace()
         }
         return photoUrl
+    }
+
+    override suspend fun loadVideo(id_video: Int,videoUri: Uri) {
+        try {
+            val storageRef = firebaseStorage.child("videos/$id_video")
+            val uploadTask = storageRef.putFile(videoUri)
+            uploadTask.await()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    override suspend fun getVideoUrl(id_video: Int): String {
+        var videoUrl = ""
+        try {
+            val storageRef = firebaseStorage.child("videos/$id_video")
+            videoUrl = storageRef.downloadUrl.await().toString()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return videoUrl
     }
 
     override fun logOut() {

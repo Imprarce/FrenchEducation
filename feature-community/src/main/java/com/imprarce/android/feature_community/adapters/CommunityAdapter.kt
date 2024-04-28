@@ -72,7 +72,7 @@ class CommunityAdapter(
         val createTimeTextView: TextView = itemView.findViewById(R.id.create_time)
         val changeTimeTextView: TextView = itemView.findViewById(R.id.change_time)
         val ratingNumberTextView: TextView = itemView.findViewById(R.id.rating_number)
-        val viewNumberTextView: TextView = itemView.findViewById(R.id.rating_number)
+        val viewNumberTextView: TextView = itemView.findViewById(R.id.view_number)
         var ratingImageView: ImageView = itemView.findViewById(R.id.arrow_rating)
         val imageView: ImageView = itemView.findViewById(R.id.icon_user)
         val deleteView: ImageView = itemView.findViewById(R.id.delete_icon)
