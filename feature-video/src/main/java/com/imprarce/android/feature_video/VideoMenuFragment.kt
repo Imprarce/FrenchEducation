@@ -47,7 +47,7 @@ class VideoMenuFragment : Fragment(), VideoClickListener {
         val adapter = FilterAdapter(filterItems)
         binding.recyclerViewFilters.adapter = adapter
 
-        userId = mainViewModel.getUserId()
+//        userId = mainViewModel.getUserId()
 
         binding.addMessageButton.setOnClickListener {
             val bundle = Bundle().apply {

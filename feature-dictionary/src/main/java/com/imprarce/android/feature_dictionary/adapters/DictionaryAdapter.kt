@@ -33,9 +33,9 @@ class DictionaryAdapter (private val dictionaryItem: List<DictionaryListItem>) :
 
         @SuppressLint("SetTextI18n")
         fun bind(dictionaryItem: DictionaryListItem) {
-            levelTextView.text = "A" + dictionaryItem.dictionary.level.toString()
-            wordFrTextView.text = dictionaryItem.dictionary.wordFr
-            wordRusTextView.text = dictionaryItem.dictionary.wordRu
+            levelTextView.text = "A" + dictionaryItem.level.toString()
+            wordFrTextView.text = dictionaryItem.wordFr
+            wordRusTextView.text = dictionaryItem.wordRu
         }
     }
 }

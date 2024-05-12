@@ -1,21 +1,21 @@
 package com.imprarce.android.feature_login.login
 
+import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.navOptions
 import com.imprarce.android.feature_login.GreetingViewModel
-import com.imprarce.android.feature_login.R
 import com.imprarce.android.feature_login.databinding.FragmentAuthBinding
-import com.imprarce.android.network.ResponseFirebase
+import com.imprarce.android.network.ResponseNetwork
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -44,17 +44,23 @@ class AuthFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.loginLiveData.observe(viewLifecycleOwner){ response ->
+        viewModel.userGetNetworkLiveData.observe(viewLifecycleOwner){ response ->
             when(response){
-                is ResponseFirebase.Success -> {
-                    val uri = Uri.parse("myApp://feature-home")
-                    navController.navigate(uri)
+                is ResponseNetwork.Success -> {
+                    viewModel.userGetRoomLiveData.observe(viewLifecycleOwner){ state ->
+                        if(state != null){
+                            hideKeyboard()
+                            Toast.makeText(context, "Пользователь успешно авторизован", Toast.LENGTH_LONG).show()
+                            val uri = Uri.parse("myApp://feature-home")
+                            navController.navigate(uri)
+                        }
+                    }
                 }
-                is ResponseFirebase.Loading -> {
+                is ResponseNetwork.Loading -> {
 
                 }
-                is ResponseFirebase.Failure -> {
-                    Toast.makeText(context, response.exception.message, Toast.LENGTH_LONG).show()
+                is ResponseNetwork.Failure -> {
+                    Toast.makeText(context, response.exception, Toast.LENGTH_LONG).show()
                 }
                 else -> {}
             }
@@ -67,8 +73,12 @@ class AuthFragment : Fragment() {
             viewModel.login(email, password)
         }
 
-        binding.enterWithGoogle.setOnClickListener {
-        }
+    }
+
+    private fun hideKeyboard() {
+        val imm =
+            requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(requireView().windowToken, 0)
     }
 
     override fun onDestroyView() {

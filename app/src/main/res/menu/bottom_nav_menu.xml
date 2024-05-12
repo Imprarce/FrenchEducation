@@ -13,10 +13,6 @@
         android:title="@string/video"
         android:icon="@drawable/icon_video"/>
     <item
-        android:id="@+id/nav_ielts"
-        android:title="@string/ielts"
-        android:icon="@drawable/icon_test"/>
-    <item
         android:id="@+id/nav_dictionary"
         android:title="@string/dictionary"
         android:icon="@drawable/icon_dictionary"/>

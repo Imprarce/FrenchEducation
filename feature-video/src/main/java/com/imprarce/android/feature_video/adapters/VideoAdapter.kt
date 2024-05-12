@@ -42,13 +42,6 @@ class VideoAdapter(
             videoClickListener?.onVideoClicked(Uri.parse(currentItem.videoFile), holder.videoView)
         }
 
-        holder.ratingImageView.setImageResource(
-            if (currentItem.rating < 0) {
-                R.drawable.arrow_down_rating
-            } else {
-                R.drawable.arrow_up_rating
-            }
-        )
     }
 
     override fun getItemCount(): Int {

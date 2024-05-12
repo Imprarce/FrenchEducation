@@ -19,17 +19,19 @@ class DetailTaskFragment : Fragment() {
     private lateinit var answer : String
 
     private var taskId : Int = 0
-    private var userId : String = ""
+    private var userId : Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val id_task = arguments?.getInt("id_task")
-        val id_user = arguments?.getString("user_id")
+        val id_user = arguments?.getInt("user_id")
 
 
-        if(id_user != null) userId = id_user
+        if(id_user != null) {
+            userId = id_user
+        }
         if(id_task != null){
-            viewModel.getTask(id_task)
+            viewModel.getTaskNetwork(id_task)
             taskId = id_task
         }
     }
@@ -50,7 +52,7 @@ class DetailTaskFragment : Fragment() {
 
 
 
-        viewModel.taskItem.observe(viewLifecycleOwner){response ->
+        viewModel.taskRoomItem.observe(viewLifecycleOwner){response ->
             binding.taskText.text = response.task.exercise
             answer = response.task.answer
         }
@@ -58,7 +60,7 @@ class DetailTaskFragment : Fragment() {
         binding.buttonAnswer.setOnClickListener {
             if(binding.taskAnswer.text.toString().trim().equals(answer.trim(), ignoreCase = true)){
                 Toast.makeText(context, "Верно", Toast.LENGTH_LONG).show()
-                viewModel.completeTask(taskId, userId)
+                viewModel.completeTaskNetwork(taskId)
                 findNavController().popBackStack()
             } else {
                 Toast.makeText(context, "Неверно", Toast.LENGTH_LONG).show()

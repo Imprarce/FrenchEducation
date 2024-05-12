@@ -9,6 +9,6 @@ import androidx.room.PrimaryKey
 data class DictionaryDbEntity (
     @PrimaryKey(autoGenerate = true) var id_word: Int = 0,
     @ColumnInfo(name = "word_level") var level: Int,
-    @ColumnInfo(name = "rus_translate") var wordFr: String,
-    @ColumnInfo(name = "fr_translate") var wordRu: String
+    @ColumnInfo(name = "rus_translate") var wordRu: String,
+    @ColumnInfo(name = "fr_translate") var wordFr: String
 )

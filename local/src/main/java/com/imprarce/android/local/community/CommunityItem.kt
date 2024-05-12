@@ -2,7 +2,7 @@ package com.imprarce.android.local.community
 
 data class CommunityItem(
     val id_community: Int,
-    val id_user: String,
+    val id_user: Int,
     val user_name: String,
     val user_image: String,
     val title: String,

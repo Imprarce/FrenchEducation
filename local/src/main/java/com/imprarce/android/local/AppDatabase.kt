@@ -37,7 +37,7 @@ import com.imprarce.android.local.video.room.VideoDbEntity
 @Database(
     entities = [UserDbEntity::class, ModuleProgressDbEntity::class, ModuleDbEntity::class, TaskDbEntity::class, ModuleTasksDbEntity::class, DictionaryDbEntity::class,
         TaskCompletedDbEntity::class, CommentDbEntity::class, CommunityDbEntity::class, FavoriteWordDbEntity::class, IeltsDbEntity::class, IeltsProgressDbEntity::class,
-               IeltsWithTasksDbEntity::class, TaskSpeciallyIeltsDbEntity::class, VideoDbEntity::class], version = 7
+               IeltsWithTasksDbEntity::class, TaskSpeciallyIeltsDbEntity::class, VideoDbEntity::class], version = 9
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
@@ -59,7 +59,7 @@ abstract class AppDatabase : RoomDatabase() {
 
     companion object {
 
-        private val MIGRATION_6_7 = object : Migration(6, 7) {
+        private val MIGRATION_8_9 = object : Migration(8, 9) {
             override fun migrate(database: SupportSQLiteDatabase) {
             }
         }
@@ -70,7 +70,7 @@ abstract class AppDatabase : RoomDatabase() {
                 AppDatabase::class.java,
                 "frenchDb.db"
             )
-                .addMigrations(MIGRATION_6_7)
+                .addMigrations(MIGRATION_8_9)
                 .build()
         }
     }

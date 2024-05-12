@@ -1,26 +1,20 @@
 package com.imprarce.android.feature_video
 
-import android.content.Context
-import android.graphics.Bitmap
 import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.firebase.auth.FirebaseUser
 import com.imprarce.android.local.ResponseRoom
 import com.imprarce.android.local.user.room.UserDbEntity
 import com.imprarce.android.local.user.room.UserRepository
 import com.imprarce.android.local.video.VideoItem
 import com.imprarce.android.local.video.room.VideoDbEntity
 import com.imprarce.android.local.video.room.VideoRepository
-import com.imprarce.android.network.repository.FirebaseRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import wseemann.media.FFmpegMediaMetadataRetriever
-import java.io.File
 import javax.inject.Inject
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
@@ -28,7 +22,7 @@ import kotlin.coroutines.suspendCoroutine
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val repository: FirebaseRepository,
+    private val repository: com.imprarce.android.network.repository.user.UserRepositoryNetwork,
     private val userRepository: UserRepository,
     private val videoRepository: VideoRepository
 ) : ViewModel() {
@@ -39,40 +33,40 @@ class MainViewModel @Inject constructor(
     private val _videoList = MutableLiveData<List<VideoItem>>()
     val videoList: LiveData<List<VideoItem>> = _videoList
 
-    val currentUser: FirebaseUser?
-        get() = repository.currentUser
-
-    init {
-        getUser()
-        getListVideo()
-        Log.d("MainViewModel", "ViewModel created")
-    }
-
-    fun getUserId(): String {
-        return currentUser?.uid ?: ""
-    }
-
-    private fun getUser() = viewModelScope.launch {
-        when (val response = repository.currentUser) {
-            null -> {
-            }
-            else -> {
-                val id_user = response.uid
-                Log.d("MainViewModel", id_user)
-                when (val userResponse = userRepository.getUserById(id_user)) {
-                    is ResponseRoom.Success -> {
-                        _userFromRoom.value = userResponse.result!!
-                    }
-                    is ResponseRoom.Failure -> {
-                        Log.e("MainViewModel", "Failed to load user: ${userResponse.exception}")
-                    }
-                    is ResponseRoom.Loading -> {
-
-                    }
-                }
-            }
-        }
-    }
+//    val currentUser: FirebaseUser?
+//        get() = repository.currentUser
+//
+//    init {
+//        getUser()
+//        getListVideo()
+//        Log.d("MainViewModel", "ViewModel created")
+//    }
+//
+//    fun getUserId(): String {
+//        return currentUser?.uid ?: ""
+//    }
+//
+//    private fun getUser() = viewModelScope.launch {
+//        when (val response = repository.currentUser) {
+//            null -> {
+//            }
+//            else -> {
+//                val id_user = response.uid
+//                Log.d("MainViewModel", id_user)
+//                when (val userResponse = userRepository.getUserById(id_user)) {
+//                    is ResponseRoom.Success -> {
+//                        _userFromRoom.value = userResponse.result!!
+//                    }
+//                    is ResponseRoom.Failure -> {
+//                        Log.e("MainViewModel", "Failed to load user: ${userResponse.exception}")
+//                    }
+//                    is ResponseRoom.Loading -> {
+//
+//                    }
+//                }
+//            }
+//        }
+//    }
 
     private fun getListVideo(){
         viewModelScope.launch {

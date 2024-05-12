@@ -119,7 +119,7 @@
                 style="@style/ImageViewStyle"
                 android:layout_width="@dimen/value_32_dp"
                 android:layout_height="@dimen/value_32_dp"
-                android:src="@drawable/icon_eye" />
+                android:src="@drawable/dislike" />
 
             <TextView
                 android:id="@+id/rating_number"
@@ -144,7 +144,7 @@
                 style="@style/ImageViewStyle"
                 android:layout_width="@dimen/value_32_dp"
                 android:layout_height="@dimen/value_32_dp"
-                android:src="@drawable/icon_eye" />
+                android:src="@drawable/like" />
 
             <TextView
                 android:id="@+id/like_number"

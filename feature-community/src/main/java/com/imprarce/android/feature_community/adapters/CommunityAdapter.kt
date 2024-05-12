@@ -17,7 +17,7 @@ import com.imprarce.android.local.community.CommunityItem
 class CommunityAdapter(
     private val context: Context,
     private val communityList: List<CommunityItem>,
-    private val userId: String,
+    private val userId: Int,
     private val onDeleteItemClickListener: OnDeleteItemClickListener<CommunityItem>,
     private val itemClickListener: OnCommunityItemClickListener
 ) :

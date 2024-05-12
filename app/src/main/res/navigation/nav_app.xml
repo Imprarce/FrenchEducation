@@ -10,7 +10,6 @@
     <include app:graph="@navigation/nav_detail" />
     <include app:graph="@navigation/nav_dictionary" />
     <include app:graph="@navigation/nav_community" />
-    <include app:graph="@navigation/nav_ielts" />
     <include app:graph="@navigation/nav_video" />
     <fragment
         android:id="@+id/settingsFragment"

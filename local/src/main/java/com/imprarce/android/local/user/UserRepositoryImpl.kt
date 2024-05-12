@@ -16,9 +16,9 @@ class UserRepositoryImpl(private val userDao: UserDao) : UserRepository {
         }
     }
 
-    override suspend fun getUserByLogin(login: String): ResponseRoom<UserDbEntity?> {
+    override suspend fun getUserByEmail(email: String): ResponseRoom<UserDbEntity?> {
         return try {
-            val response = userDao.getUserByLogin(login)
+            val response = userDao.getUserByEmail(email)
             ResponseRoom.Success(response)
         } catch (e: Exception){
             e.printStackTrace()
@@ -36,7 +36,7 @@ class UserRepositoryImpl(private val userDao: UserDao) : UserRepository {
         }
     }
 
-    override suspend fun getUserById(id_user: String): ResponseRoom<UserDbEntity?> {
+    override suspend fun getUserById(id_user: Int): ResponseRoom<UserDbEntity?> {
         return try {
             val response = userDao.getUserById(id_user)
             if(response != null){
@@ -50,7 +50,7 @@ class UserRepositoryImpl(private val userDao: UserDao) : UserRepository {
         }
     }
 
-    override suspend fun updateUserName(id_user: String, name: String): ResponseRoom<Unit> {
+    override suspend fun updateUserName(id_user: Int, name: String): ResponseRoom<Unit> {
         return try {
             val response = userDao.updateUserName(id_user, name)
             return ResponseRoom.Success(response)
@@ -60,7 +60,7 @@ class UserRepositoryImpl(private val userDao: UserDao) : UserRepository {
         }
     }
 
-    override suspend fun updateUserPhoto(id_user: String, photoUrl: String): ResponseRoom<Unit> {
+    override suspend fun updateUserPhoto(id_user: Int, photoUrl: String): ResponseRoom<Unit> {
         return try {
             val response = userDao.updateUserPhoto(id_user, photoUrl)
             return ResponseRoom.Success(response)

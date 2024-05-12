@@ -13,7 +13,7 @@ class AddViewModel @Inject constructor(
     private val communityRepository: CommunityRepository
 ) : ViewModel() {
 
-    fun addNewMessage(idUser: String, title: String, description: String, currentTime: String){
+    fun addNewMessage(idUser: Int, title: String, description: String, currentTime: String){
         val community = CommunityDbEntity(
             id_user = idUser,
             title = title,

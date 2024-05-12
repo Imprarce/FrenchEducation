@@ -1,26 +1,21 @@
 package com.imprarce.android.frencheducation.ui
 
-import android.Manifest
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.core.content.ContextCompat
-import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.imprarce.android.frencheducation.R
 import com.imprarce.android.frencheducation.databinding.ActivityMainBinding
-import com.imprarce.android.frencheducation.ui.settings_profile.LogoutListener
+import com.imprarce.android.frencheducation.ui.helpers.LogoutListener
 import com.imprarce.android.frencheducation.utils.fragmentNamesMap
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -38,17 +33,19 @@ class MainActivity : AppCompatActivity(), LogoutListener {
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
         val settings = findViewById<ImageView>(R.id.settingsButton)
         val profile = findViewById<ImageView>(R.id.icon_user)
         val backArrow = findViewById<ImageButton>(R.id.back_arrow)
 
         viewModel.userFromRoom.observe(this) { response ->
             response?.let {
-                Glide.with(applicationContext)
-                    .load(response.imageUrl)
-                    .placeholder(com.imprarce.android.feature_community.R.drawable.image_plug)
-                    .into(profile)
+                loadUserPhoto(response.imageUrl)
             }
+        }
+
+        viewModel.userPhotoUrl.observe(this){ response ->
+            loadUserPhoto(response)
         }
 
         if (viewModel.userFromRoom.value == null) {
@@ -107,6 +104,15 @@ class MainActivity : AppCompatActivity(), LogoutListener {
                 }
             }
         }
+    }
+
+    private fun loadUserPhoto(imageUrl: String?) {
+        Glide.with(baseContext)
+            .load(imageUrl)
+            .placeholder(R.drawable.image_plug)
+            .skipMemoryCache(true)
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
+            .into(binding.toolbar.iconUser)
     }
 
     override fun onBackPressed() {

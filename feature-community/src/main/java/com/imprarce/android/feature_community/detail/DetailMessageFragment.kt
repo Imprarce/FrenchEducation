@@ -35,7 +35,7 @@ class DetailMessageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val idUser = arguments?.getString("user_id")
+        val idUser = arguments?.getInt("user_id")
         val idCommunity = arguments?.getInt("id_community")
 
         if(idCommunity != null){

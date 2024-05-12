@@ -25,7 +25,7 @@ class TaskListAdapter(
 
     fun markTaskCompleted(taskId: Int) {
         completedPositions.add(taskId)
-        notifyItemChanged(taskId)
+        notifyDataSetChanged()
 
     }
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {

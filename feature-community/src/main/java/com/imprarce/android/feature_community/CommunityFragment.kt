@@ -26,7 +26,7 @@ class CommunityFragment : Fragment(), OnDeleteItemClickListener<CommunityItem>, 
     private var _binding: FragmentCommunityBinding? = null
     private val binding get() = _binding!!
 
-    private var userId = ""
+    private var userId = 0
 
     private val filterItems = listOf(R.string.rating, R.string.title, R.string.views)
 
@@ -42,13 +42,13 @@ class CommunityFragment : Fragment(), OnDeleteItemClickListener<CommunityItem>, 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        userId = mainViewModel.getUserId()
+//        userId = mainViewModel.getUserId()
         val adapter = FilterAdapter(filterItems)
         binding.recyclerViewFilters.adapter = adapter
 
         binding.addMessageButton.setOnClickListener {
             val bundle = Bundle().apply {
-                putString("user_id", userId)
+                putInt("user_id", userId)
             }
             findNavController().navigate(
                 R.id.action_communityFragment_to_addMessageFragment,
@@ -61,7 +61,7 @@ class CommunityFragment : Fragment(), OnDeleteItemClickListener<CommunityItem>, 
         }
     }
 
-    private fun setAdapter(communityList: List<CommunityItem>, userId: String) {
+    private fun setAdapter(communityList: List<CommunityItem>, userId: Int) {
         val adapter = CommunityAdapter(requireContext(), communityList, userId, this, this)
         binding.recyclerViewMain.adapter = adapter
         binding.recyclerViewMain.layoutManager = LinearLayoutManager(requireContext())

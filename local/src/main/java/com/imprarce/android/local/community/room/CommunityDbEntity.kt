@@ -18,7 +18,7 @@ import com.imprarce.android.local.user.room.UserDbEntity
 data class CommunityDbEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id_community") val id_community: Int = 0,
-    @ColumnInfo(name = "id_user") val id_user: String,
+    @ColumnInfo(name = "id_user") val id_user: Int,
     @ColumnInfo(name = "title") val title: String,
     @ColumnInfo(name = "rating") val rating: Int,
     @ColumnInfo(name = "view") val view: Int,

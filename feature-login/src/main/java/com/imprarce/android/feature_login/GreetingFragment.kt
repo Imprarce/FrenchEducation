@@ -1,5 +1,6 @@
 package com.imprarce.android.feature_login
 
+import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -12,7 +13,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.imprarce.android.feature_login.databinding.FragmentGreetingBinding
-import com.imprarce.android.network.ResponseFirebase
+import com.imprarce.android.network.ResponseNetwork
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -38,19 +39,10 @@ class GreetingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.loginLiveData.observe(viewLifecycleOwner){ response ->
-            when(response){
-                is ResponseFirebase.Success -> {
-                    val uri = Uri.parse("myApp://feature-home")
-                    navController.navigate(uri)
-                }
-                is ResponseFirebase.Loading -> {
-
-                }
-                is ResponseFirebase.Failure -> {
-                    Toast.makeText(context, response.exception.message, Toast.LENGTH_LONG).show()
-                }
-                else -> {}
+        viewModel.tokenLiveData.observe(viewLifecycleOwner){ response ->
+            if(response != "" && response != null){
+                val uri = Uri.parse("myApp://feature-home")
+                navController.navigate(uri)
             }
         }
 

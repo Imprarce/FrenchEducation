@@ -49,4 +49,5 @@
     <string name="give_answer">Ответить</string>
     <string name="change">Поменять</string>
     <string name="progress_bar_text_loading">Загружаем данные</string>
+    <string name="server_is_thinking">Сервер думает</string>
 </resources>

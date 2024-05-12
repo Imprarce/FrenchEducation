@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.imprarce.android.frencheducation.com.imprarce.android.feature_login.reg.RegFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guide_line_vertical_right"
@@ -122,53 +121,21 @@
         app:layout_constraintTop_toBottomOf="@id/editText_confirm_password" />
 
     <View
-        android:id="@+id/center_line_left"
-        android:layout_width="150dp"
-        android:layout_height="@dimen/value_1_dp"
-        android:layout_marginTop="@dimen/value_40_dp"
-        android:background="@color/light_gray_line_reg"
-        app:layout_constraintEnd_toEndOf="@id/guide_line_vertical_right"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@id/guide_line_vertical_left"
-        app:layout_constraintTop_toBottomOf="@id/reg_button" />
+        android:id="@+id/overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#80000000"
+        android:visibility="gone" />
 
-    <View
-        android:id="@+id/center_line_right"
-        android:layout_width="150dp"
-        android:layout_height="@dimen/value_1_dp"
-        android:layout_marginTop="@dimen/value_40_dp"
-        android:background="@color/light_gray_line_reg"
-        app:layout_constraintEnd_toEndOf="@id/guide_line_vertical_right"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@id/guide_line_vertical_left"
-        app:layout_constraintTop_toBottomOf="@id/reg_button" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="@dimen/value_0_dp"
+    <include
+        android:id="@+id/customProgressBarReg"
+        layout="@layout/custom_progress_bar_reg"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:layout_marginTop="@dimen/value_32_dp"
-        android:text="@string/or"
-        android:textSize="@dimen/value_16_sp"
-        app:layout_constraintEnd_toStartOf="@id/center_line_left"
-        app:layout_constraintStart_toEndOf="@id/center_line_right"
-        app:layout_constraintTop_toBottomOf="@id/reg_button"  />
-
-    <Button
-        android:id="@+id/reg_with_google"
-        android:layout_width="@dimen/value_0_dp"
-        android:layout_height="@dimen/value_48_dp"
-        android:layout_marginTop="@dimen/value_32_dp"
-        android:layout_marginBottom="@dimen/value_32_dp"
-        android:background="@drawable/custom_button_greeting"
-        android:drawableStart="@drawable/icon_google"
-        android:paddingStart="@dimen/value_50_dp"
-        android:paddingEnd="@dimen/value_50_dp"
-        android:text="@string/with_google"
-        style="@style/ButtonStyle"
-        app:layout_constraintEnd_toStartOf="@id/guide_line_vertical_right"
-        app:layout_constraintStart_toStartOf="@id/guide_line_vertical_left"
-        app:layout_constraintTop_toBottomOf="@id/textView4" />
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/reg_button"
+        app:layout_constraintEnd_toStartOf="@+id/guide_line_vertical_right"
+        app:layout_constraintStart_toStartOf="@+id/guide_line_vertical_left"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

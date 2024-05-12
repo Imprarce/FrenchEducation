@@ -1,82 +1,48 @@
 package com.imprarce.android.feature_home.ui
 
-import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.firebase.auth.FirebaseUser
-import com.imprarce.android.local.AppDatabase
 import com.imprarce.android.local.ResponseRoom
 import com.imprarce.android.local.user.room.UserDbEntity
 import com.imprarce.android.local.user.room.UserRepository
-import com.imprarce.android.network.repository.FirebaseRepository
+import com.imprarce.android.network.utils.SessionManager
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val repository: FirebaseRepository,
+    private val repository: com.imprarce.android.network.repository.user.UserRepositoryNetwork,
     private val userRepository: UserRepository,
+    private val sessionManager: SessionManager
 ) : ViewModel() {
 
-    private val _userFromRoom = MutableLiveData<UserDbEntity>()
-    val userFromRoom: LiveData<UserDbEntity> = _userFromRoom
-
-    val currentUser: FirebaseUser?
-        get() = repository.currentUser
+    private var _userFromRoom = MutableLiveData<UserDbEntity?>()
+    val userFromRoom: LiveData<UserDbEntity?> = _userFromRoom
 
     init {
-        getUser()
         Log.d("MainViewModel", "ViewModel created")
     }
 
-    fun logOut() {
+    suspend fun logout() {
         repository.logOut()
     }
 
     fun getUser() = viewModelScope.launch {
-        when (val response = repository.currentUser) {
-            null -> {
-            }
-            else -> {
-                val id_user = response.uid
-                Log.d("MainViewModel", id_user)
-                when (val userResponse = userRepository.getUserById(id_user)) {
-                    is ResponseRoom.Success -> {
-                        _userFromRoom.value = userResponse.result!!
-                    }
-                    is ResponseRoom.Failure -> {
-                        Log.e("MainViewModel", "Failed to load user: ${userResponse.exception}")
-                    }
-                    is ResponseRoom.Loading -> {
+        val email = sessionManager.getCurrentUserEmail() ?: return@launch
 
-                    }
+        when (val response = userRepository.getUserByEmail(email)) {
+            is ResponseRoom.Success -> {
+                if (response.result != null) {
+                    _userFromRoom.value = response.result
+                    sessionManager.setCurrentUserId(response.result!!.id_user)
                 }
             }
+            else -> {}
         }
-    }
-
-    fun changeName(name: String) = viewModelScope.launch {
-        repository.changeName(name)
-        val currentUser = repository.currentUser
-        if (currentUser != null) {
-            userRepository.updateUserName(currentUser.uid, name)
-        }
-        getUser()
-    }
-
-    fun changePhoto(photoUri: Uri) = viewModelScope.launch {
-        repository.changePhoto(photoUri)
-        val photoUrl = repository.getPhotoUrl()
-        val currentUser = repository.currentUser
-        if (currentUser != null) {
-            userRepository.updateUserPhoto(currentUser.uid, photoUrl)
-        }
-        getUser()
     }
 
     override fun onCleared() {

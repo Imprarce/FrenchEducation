@@ -1,97 +1,164 @@
 package com.imprarce.android.feature_login
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.google.firebase.auth.FirebaseUser
-import com.imprarce.android.feature_login.helpers.SignUpState
-import com.imprarce.android.feature_login.utils.DateFormatUtil
+import androidx.lifecycle.*
+import com.imprarce.android.feature_login.helpers.ConverterUser
 import com.imprarce.android.local.ResponseRoom
 import com.imprarce.android.local.user.room.UserDbEntity
 import com.imprarce.android.local.user.room.UserRepository
-import com.imprarce.android.network.ResponseFirebase
-import com.imprarce.android.network.repository.FirebaseRepository
+import com.imprarce.android.network.ResponseNetwork
+import com.imprarce.android.network.model.user.User
+import com.imprarce.android.network.model.user.UserLoginAndReg
+import com.imprarce.android.network.utils.Constants.MINIMUM_PASSWORD_LENGTH
+import com.imprarce.android.network.utils.SessionManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import java.util.*
+import java.util.regex.Pattern
 import javax.inject.Inject
 
 @HiltViewModel
 class GreetingViewModel @Inject constructor(
-    private val firebaseRepository: FirebaseRepository,
-    private val userRepository: UserRepository
+    private val networkRepository: com.imprarce.android.network.repository.user.UserRepositoryNetwork,
+    private val userRepository: UserRepository,
+    private val sessionManager: SessionManager
 ) : ViewModel() {
 
-    private val _loginLiveData = MutableLiveData<ResponseFirebase<FirebaseUser>?>(null)
-    val loginLiveData: LiveData<ResponseFirebase<FirebaseUser>?> = _loginLiveData
+    private var _loginLiveData = MutableLiveData<ResponseNetwork<String>>(null)
+    val loginLiveData: LiveData<ResponseNetwork<String>> = _loginLiveData
 
-    private val _signUpLiveData = MutableLiveData<ResponseFirebase<FirebaseUser>?>(null)
-    val signUpLiveData: LiveData<ResponseFirebase<FirebaseUser>?> = _signUpLiveData
+    private var _signUpLiveData = MutableLiveData<ResponseNetwork<String>>(null)
+    val signUpLiveData: LiveData<ResponseNetwork<String>> = _signUpLiveData
 
-    private val _signUpState = MutableLiveData<SignUpState>(null)
-    var signUpState: LiveData<SignUpState> = _signUpState
+    private var _userGetNetworkLiveData = MutableLiveData<ResponseNetwork<User>>(null)
+    var userGetNetworkLiveData: LiveData<ResponseNetwork<User>> = _userGetNetworkLiveData
 
-    val currentUser: FirebaseUser?
-        get() = firebaseRepository.currentUser
+    private var _userGetRoomLiveData = MutableLiveData<UserDbEntity?>(null)
+    var userGetRoomLiveData: LiveData<UserDbEntity?> = _userGetRoomLiveData
+
+    private var _tokenLiveData = MutableLiveData<String>(null)
+    val tokenLiveData: LiveData<String> = _tokenLiveData
 
     init {
-        if(firebaseRepository.currentUser != null){
-            _loginLiveData.value = ResponseFirebase.Success(firebaseRepository.currentUser!!)
-            onCleared()
+        viewModelScope.launch {
+            if(sessionManager.getJwtToken() != null){
+                _tokenLiveData.value = sessionManager.getJwtToken()
+            }
         }
-        Log.d("GreetingViewModel", "GreetingViewModel created")
+
+        userGetNetworkLiveData.observeForever { response ->
+            if (response is ResponseNetwork.Success) {
+                viewModelScope.launch {
+
+                    val email = sessionManager.getCurrentUserEmail() ?: return@launch
+                    val id = response.result.idUser
+                    sessionManager.setCurrentUserId(id)
+                    addCurrentUserToRoomIfNotExists(email)
+                }
+            }
+        }
     }
 
     fun login(email: String, password: String) = viewModelScope.launch {
-        _loginLiveData.value = ResponseFirebase.Loading
-        val result = firebaseRepository.login(email, password)
-        _loginLiveData.value = result
-        addCurrentUserToRoomIfNotExists()
+        _loginLiveData.value = ResponseNetwork.Loading
+
+        if (!isEmailValid(email)) {
+            _loginLiveData.value = ResponseNetwork.Failure("Почта написана неверно")
+            return@launch
+        }
+
+        if (!isPasswordValid(email)) {
+            _loginLiveData.value = ResponseNetwork.Failure("Пароль написан неверно")
+            return@launch
+        }
+
+        val user = UserLoginAndReg(
+            email = email,
+            password = password
+        )
+
+        _loginLiveData.value = networkRepository.login(user)
+
+        val loginResponse = _loginLiveData.value
+
+        if (loginResponse is ResponseNetwork.Success) {
+            val token = loginResponse.result
+            sessionManager.saveJwtToken(token)
+        }
+
+        _userGetNetworkLiveData.value = networkRepository.getUser()
     }
 
     fun signUp(email: String, password: String) = viewModelScope.launch {
-        _signUpState.value = SignUpState.Loading
-        val result = firebaseRepository.signUp(email, password)
-        if (result is ResponseFirebase.Success) {
-            val addUserResult = addCurrentUserToRoomIfNotExists()
-            if (addUserResult is ResponseRoom.Success) {
-                _signUpState.value = SignUpState.Success
-            } else {
-                _signUpState.value = SignUpState.Error("Failed to add user to Room")
-            }
-        } else {
-            _signUpState.value = when (result) {
-                is ResponseFirebase.Failure -> SignUpState.Error(result.exception.message ?: "Unknown error")
-                is ResponseFirebase.Loading -> SignUpState.Idle
-                else -> SignUpState.Error("Unknown error")
+
+        _signUpLiveData.value = ResponseNetwork.Loading
+
+        if (!isEmailValid(email)) {
+            _signUpLiveData.value = ResponseNetwork.Failure("Почта написана неверно")
+            return@launch
+        }
+
+        if (!isPasswordValid(password)) {
+            _signUpLiveData.value = ResponseNetwork.Failure("Пароль написан неверно")
+
+            return@launch
+        }
+
+        val newUser = UserLoginAndReg(
+            email = email,
+            password = password
+        )
+
+        _signUpLiveData.value = networkRepository.signUp(newUser)
+
+        val signUpResponse = _signUpLiveData.value
+
+        if (signUpResponse is ResponseNetwork.Success) {
+            val token = signUpResponse.result
+            sessionManager.saveJwtToken(token)
+        }
+
+        _userGetNetworkLiveData.value = networkRepository.getUser()
+    }
+
+    private suspend fun addCurrentUserToRoomIfNotExists(email: String) {
+        viewModelScope.launch {
+            when(val response = userRepository.getUserByEmail(email)){
+                is ResponseRoom.Success -> {
+                    if(response.result == null){
+                        val userNetworkResponse = _userGetNetworkLiveData.value
+                        if (userNetworkResponse is ResponseNetwork.Success) {
+                            val user = userNetworkResponse.result
+                            user.imageUrl = user.imageUrl.replace("http://", "https://")
+                            if (user != null) {
+                                val userDbEntity = ConverterUser().convertToDbEntity(user)
+                                userRepository.insertUser(userDbEntity)
+                                _userGetRoomLiveData.value = userDbEntity
+                                ResponseRoom.Success(Unit)
+                            }
+                        }
+                    } else {
+                        _userGetRoomLiveData.value = response.result
+                    }
+                    ResponseRoom.Success(Unit)
+                }
+                is ResponseRoom.Failure -> {
+                }
+                is ResponseRoom.Loading -> {
+                    ResponseRoom.Loading
+                }
             }
         }
     }
 
-    private suspend fun addCurrentUserToRoomIfNotExists(): ResponseRoom<Unit> {
-        val currentUser = firebaseRepository.currentUser
-        if (currentUser != null) {
-            val id_user = currentUser.uid
-            when (val response = userRepository.getUserById(id_user)) {
-                is ResponseRoom.Failure -> {
-                    val name = firebaseRepository.getName()
-                    val imageUrl = firebaseRepository.getPhotoUrl()
-                    val data = DateFormatUtil.formatDate(currentUser.metadata?.creationTimestamp?.let { Date(it) })
-                    val insertResult = userRepository.insertUser(UserDbEntity(id_user, "*****", currentUser.email ?: "", name, imageUrl, data))
-                    if (insertResult is ResponseRoom.Success) {
-                        return ResponseRoom.Success(Unit)
-                    } else {
-                        return ResponseRoom.Failure(Exception("Failed to insert user into Room"))
-                    }
-                }
-                else -> {
-                    return ResponseRoom.Success(Unit)
-                }
-            }
-        }
-        return ResponseRoom.Failure(Exception("Current user is null"))
+    private fun isEmailValid(email: String): Boolean {
+        var regex =
+            "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}\\@[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}(\\.[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25})+"
+        val pattern = Pattern.compile(regex)
+        return (email.isNotEmpty() && pattern.matcher(email).matches())
+    }
+
+    private fun isPasswordValid(password: String): Boolean {
+        return (password.length >= MINIMUM_PASSWORD_LENGTH)
     }
 
     override fun onCleared() {

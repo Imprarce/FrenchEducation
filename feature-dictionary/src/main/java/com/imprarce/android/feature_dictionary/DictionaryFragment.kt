@@ -41,7 +41,7 @@ class DictionaryFragment : Fragment() {
         val adapter = FilterAdapter(filterItems)
         binding.recyclerViewFilters.adapter = adapter
 
-        viewModel.dictionaryList.observe(viewLifecycleOwner) { response ->
+        viewModel.dictionaryListFromRoom.observe(viewLifecycleOwner) { response ->
             setAdapter(response)
         }
 

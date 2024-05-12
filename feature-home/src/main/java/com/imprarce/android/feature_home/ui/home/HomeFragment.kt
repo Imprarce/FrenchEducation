@@ -26,7 +26,7 @@ class HomeFragment : Fragment(), OnModuleClickListener {
     private val mainViewModel: MainViewModel by activityViewModels()
 
     private val viewModel by viewModels<HomeViewModel>()
-    private var userId : String? = null
+    private var userId : Int? = null
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private val filterItems = listOf(R.string.title, R.string.level, R.string.progress)
@@ -45,27 +45,31 @@ class HomeFragment : Fragment(), OnModuleClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val customProgressBar = view.findViewById<RelativeLayout>(R.id.customProgressBar)
-
-        customProgressBar.visibility = View.VISIBLE
-        binding.overlay.visibility = View.VISIBLE
+//        val customProgressBar = view.findViewById<RelativeLayout>(R.id.customProgressBar)
+//
+//        customProgressBar.visibility = View.VISIBLE
+//        binding.overlay.visibility = View.VISIBLE
 
         mainViewModel.userFromRoom.observe(viewLifecycleOwner){user ->
             if(user != null){
                 userId = user.id_user
-                viewModel.loadModules(user.id_user)
+                viewModel.loadModulesFromNetwork()
             }
         }
 
 
         viewModel.moduleListItems.observe(viewLifecycleOwner){response ->
             setAdapter(response)
-            customProgressBar.visibility = View.GONE
-            binding.overlay.visibility = View.GONE
+//            customProgressBar.visibility = View.GONE
+//            binding.overlay.visibility = View.GONE
         }
 
         val adapter = FilterAdapter(filterItems)
         binding.recyclerViewFilters.adapter = adapter
+
+        if (mainViewModel.userFromRoom.value == null) {
+            mainViewModel.getUser()
+        }
 
     }
 

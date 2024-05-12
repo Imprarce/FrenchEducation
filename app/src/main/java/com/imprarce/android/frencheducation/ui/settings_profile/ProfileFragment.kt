@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.imprarce.android.frencheducation.R
 import com.imprarce.android.frencheducation.databinding.FragmentProfileBinding
 import com.imprarce.android.frencheducation.ui.MainViewModel
@@ -42,11 +43,8 @@ class ProfileFragment : Fragment() {
         viewModel.userFromRoom.observe(viewLifecycleOwner) { response ->
             response?.let {
                 binding.name.text = response.userName
-                binding.email.text = response.login
-                Glide.with(requireContext())
-                    .load(response.imageUrl)
-                    .placeholder(R.drawable.image_plug)
-                    .into(binding.photo)
+                binding.email.text = response.email
+                loadUserPhoto(response.imageUrl)
             }
         }
 
@@ -54,5 +52,14 @@ class ProfileFragment : Fragment() {
         if (viewModel.userFromRoom.value == null) {
             viewModel.getUser()
         }
+    }
+
+    private fun loadUserPhoto(imageUrl: String?) {
+        Glide.with(requireContext())
+            .load(imageUrl)
+            .placeholder(R.drawable.image_plug)
+            .skipMemoryCache(true)
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
+            .into(binding.photo)
     }
 }

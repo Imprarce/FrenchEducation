@@ -1,12 +1,13 @@
 package com.imprarce.android.feature_community.createmessage
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -14,6 +15,8 @@ import com.imprarce.android.feature_community.MainViewModel
 import com.imprarce.android.feature_community.databinding.FragmentAddMessageBinding
 import com.imprarce.android.feature_community.utils.DateFormatUtil
 import dagger.hilt.android.AndroidEntryPoint
+import java.time.LocalDate
+import java.time.LocalDateTime
 
 @AndroidEntryPoint
 class AddMessageFragment : BottomSheetDialogFragment() {
@@ -32,21 +35,23 @@ class AddMessageFragment : BottomSheetDialogFragment() {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val userId = arguments?.getString("user_id")
+        val userId = arguments?.getInt("user_id")
 
         setBottomSheet()
 
         binding.createButton.setOnClickListener {
-            if(binding.title.text != "" && binding.description.text != ""){
+            if (binding.title.text != "" && binding.description.text != "") {
                 val currentDate = DateFormatUtil.getCurrentDate()
                 if (userId != null) {
-                    viewModel.addNewMessage(userId,
-                    binding.editTextTitle.text.toString(),
-                    binding.editTextDescription.text.toString(),
-                    currentDate
+                    viewModel.addNewMessage(
+                        userId,
+                        binding.editTextTitle.text.toString(),
+                        binding.editTextDescription.text.toString(),
+                        LocalDateTime.parse(currentDate)
                     )
                 }
                 findNavController().popBackStack()
@@ -54,8 +59,9 @@ class AddMessageFragment : BottomSheetDialogFragment() {
         }
     }
 
-    private fun setBottomSheet(){
-        val bottomSheet : FrameLayout = dialog?.findViewById(com.google.android.material.R.id.design_bottom_sheet)!!
+    private fun setBottomSheet() {
+        val bottomSheet: FrameLayout =
+            dialog?.findViewById(com.google.android.material.R.id.design_bottom_sheet)!!
 
         bottomSheet.layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT
 

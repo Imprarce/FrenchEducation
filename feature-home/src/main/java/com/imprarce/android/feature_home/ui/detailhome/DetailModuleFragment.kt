@@ -24,7 +24,7 @@ class DetailModuleFragment : Fragment(), OnTaskClickListener {
     var adapter = TaskListAdapter(emptyList(), this, emptyList())
     private var _binding: FragmentDetailModuleBinding? = null
     private val binding get() = _binding!!
-    private var userId: String = ""
+    private var userId: Int = 0
     private var moduleId: Int = 0
 
 
@@ -32,7 +32,7 @@ class DetailModuleFragment : Fragment(), OnTaskClickListener {
         super.onCreate(savedInstanceState)
 
         val id_module = arguments?.getInt("id_module")
-        val id_user = arguments?.getString("user_id")
+        val id_user = arguments?.getInt("user_id")
 
 
         Log.d("DetailModuleFragment", "$id_module")
@@ -42,8 +42,9 @@ class DetailModuleFragment : Fragment(), OnTaskClickListener {
         }
 
         if(id_module != null){
-            viewModel.loadTasks(id_module)
-            viewModel.getCompletedTasks(userId)
+            viewModel.setCurrentModuleId(id_module)
+            viewModel.loadTasksNetwork(id_module)
+            viewModel.getCompletedTasksNetwork()
             moduleId = id_module
         }
     }
@@ -63,14 +64,14 @@ class DetailModuleFragment : Fragment(), OnTaskClickListener {
         super.onViewCreated(view, savedInstanceState)
 
 
-        viewModel.taskCompletedList.observe(viewLifecycleOwner) { completedTasks ->
-            viewModel.taskListItems.observe(viewLifecycleOwner) { taskList ->
+        viewModel.taskCompletedRoomList.observe(viewLifecycleOwner) { completedTasks ->
+            viewModel.taskRoomListItems.observe(viewLifecycleOwner) { taskList ->
                 val taskListsContainer = TaskListsContainer(taskList, completedTasks)
                 setAdapter(taskListsContainer)
             }
         }
 
-        viewModel.taskComplete.observe(viewLifecycleOwner){task ->
+        viewModel.taskRoomComplete.observe(viewLifecycleOwner){task ->
             adapter.markTaskCompleted(task)
         }
     }

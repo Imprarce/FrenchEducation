@@ -6,78 +6,97 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.firebase.auth.FirebaseUser
-import com.imprarce.android.local.AppDatabase
 import com.imprarce.android.local.ResponseRoom
 import com.imprarce.android.local.user.room.UserDbEntity
 import com.imprarce.android.local.user.room.UserRepository
-import com.imprarce.android.network.repository.FirebaseRepository
+import com.imprarce.android.network.ResponseNetwork
+import com.imprarce.android.network.repository.user.UserRepositoryNetwork
+import com.imprarce.android.network.utils.SessionManager
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val repository: FirebaseRepository,
+    private val repository: UserRepositoryNetwork,
     private val userRepository: UserRepository,
+    private val sessionManager: SessionManager
 ) : ViewModel() {
 
-    private val _userFromRoom = MutableLiveData<UserDbEntity>()
-    val userFromRoom: LiveData<UserDbEntity> = _userFromRoom
+    private var _userFromRoom = MutableLiveData<UserDbEntity?>()
+    val userFromRoom: LiveData<UserDbEntity?> = _userFromRoom
 
-    val currentUser: FirebaseUser?
-        get() = repository.currentUser
+    private val _userPhotoUrl = MutableLiveData<String>()
+    val userPhotoUrl: LiveData<String> = _userPhotoUrl
 
     init {
         getUser()
         Log.d("MainViewModel", "ViewModel created")
     }
 
-    fun logOut() {
+    suspend fun logout() {
         repository.logOut()
     }
 
     fun getUser() = viewModelScope.launch {
-        when (val response = repository.currentUser) {
-            null -> {
-            }
-            else -> {
-                val id_user = response.uid
-                Log.d("MainViewModel", id_user)
-                when (val userResponse = userRepository.getUserById(id_user)) {
-                    is ResponseRoom.Success -> {
-                        _userFromRoom.value = userResponse.result!!
-                    }
-                    is ResponseRoom.Failure -> {
-                        Log.e("MainViewModel", "Failed to load user: ${userResponse.exception}")
-                    }
-                    is ResponseRoom.Loading -> {
+        val email = sessionManager.getCurrentUserEmail() ?: return@launch
 
+        when (val response = userRepository.getUserByEmail(email)) {
+            is ResponseRoom.Success -> {
+                if (response.result != null) {
+                    _userFromRoom.value = response.result
+                    sessionManager.setCurrentUserId(response.result!!.id_user)
+                }
+            }
+            else -> {}
+        }
+    }
+
+
+    fun changeName(name: String) = viewModelScope.launch {
+        try {
+            repository.changeName(name)
+            val userFromNetwork = repository.getUser()
+
+            if(userFromRoom != null && userFromNetwork is ResponseNetwork.Success){
+                val userFromNetworkData = userFromNetwork.result
+                val id = sessionManager.getCurrentUserId()
+                if (userFromNetworkData != null && id != null) {
+                    if (userFromRoom.value?.userName != userFromNetworkData.userName) {
+                        userRepository.updateUserName(id, userFromNetworkData.userName)
+                        getUser()
                     }
                 }
             }
+        } catch (e: Exception){
+            e.printStackTrace()
         }
-    }
-
-    fun changeName(name: String) = viewModelScope.launch {
-        repository.changeName(name)
-        val currentUser = repository.currentUser
-        if (currentUser != null) {
-            userRepository.updateUserName(currentUser.uid, name)
-        }
-        getUser()
     }
 
     fun changePhoto(photoUri: Uri) = viewModelScope.launch {
-        repository.changePhoto(photoUri)
-        val photoUrl = repository.getPhotoUrl()
-        val currentUser = repository.currentUser
-        if (currentUser != null) {
-            userRepository.updateUserPhoto(currentUser.uid, photoUrl)
+        try {
+            repository.changePhoto(photoUri)
+
+            val userFromNetwork = repository.getUser()
+
+            if (userFromRoom != null && userFromNetwork is ResponseNetwork.Success) {
+                val userFromNetworkData = userFromNetwork.result
+                if (userFromNetworkData != null) {
+                    if (userFromRoom.value?.imageUrl != userFromNetworkData.imageUrl) {
+                        val updatedImageUrl = userFromNetworkData.imageUrl.replace("http://", "https://")
+                        if (userFromRoom.value?.imageUrl != updatedImageUrl) {
+                            userRepository.updateUserPhoto(userFromNetworkData.idUser, updatedImageUrl)
+                            getUser()
+                        }
+                        _userPhotoUrl.value = updatedImageUrl
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
-        getUser()
     }
+
 
     override fun onCleared() {
         super.onCleared()
