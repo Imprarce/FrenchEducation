@@ -25,7 +25,7 @@ class AddVideoFragment : BottomSheetDialogFragment() {
 
     private var _binding: FragmentAddVideoBinding? = null
     private val binding get() = _binding!!
-    private var video_url = ""
+    private var video_url: Uri? = null
     private val videoPicker: VideoPicker = VideoPicker(this)
 
     override fun onCreateView(
@@ -50,27 +50,25 @@ class AddVideoFragment : BottomSheetDialogFragment() {
         }
 
         videoPicker.onVideoSelected = { videoUri ->
-            video_url = videoUri.toString()
+            video_url = videoUri
             binding.chooseVideo.text = "Видео выбрано"
         }
 
         binding.createButton.setOnClickListener {
-            if (binding.editTextTitle.text.toString() != "" && binding.editTextDescription.text.toString() != "" && video_url != "") {
-                if (userId != null) {
+            if (binding.editTextTitle.text.toString() != "" && binding.editTextDescription.text.toString() != "") {
+                if (video_url != null) {
                     viewModel.addNewVideo(
-                        userId,
                         binding.editTextTitle.text.toString(),
                         binding.editTextDescription.text.toString(),
-                        video_url,
-                        null
+                        video_url!!
                     )
-                    lifecycleScope.launch {
-                        val videoIdDeferred = async {
-                            viewModel.getIdVideo(videoUri = Uri.parse(video_url))
-                        }
-                        val videoId = videoIdDeferred.await()
-                        viewModel.loadVideo(videoId, videoUri = Uri.parse(video_url))
-                    }
+//                    lifecycleScope.launch {
+//                        val videoIdDeferred = async {
+//                            viewModel.getIdVideo(videoUri = Uri.parse(video_url))
+//                        }
+//                        val videoId = videoIdDeferred.await()
+//                        viewModel.loadVideo(videoId, videoUri = Uri.parse(video_url))
+//                    }
                 }
                 findNavController().popBackStack()
             }

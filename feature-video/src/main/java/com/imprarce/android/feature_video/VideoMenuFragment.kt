@@ -42,12 +42,9 @@ class VideoMenuFragment : Fragment(), VideoClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//       mainViewModel.deleteAllVideos()
 
         val adapter = FilterAdapter(filterItems)
         binding.recyclerViewFilters.adapter = adapter
-
-//        userId = mainViewModel.getUserId()
 
         binding.addMessageButton.setOnClickListener {
             val bundle = Bundle().apply {

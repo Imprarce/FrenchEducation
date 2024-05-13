@@ -17,6 +17,8 @@ import com.imprarce.android.feature_community.utils.DateFormatUtil
 import dagger.hilt.android.AndroidEntryPoint
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 @AndroidEntryPoint
 class AddMessageFragment : BottomSheetDialogFragment() {
@@ -24,6 +26,11 @@ class AddMessageFragment : BottomSheetDialogFragment() {
 
     private var _binding: FragmentAddMessageBinding? = null
     private val binding get() = _binding!!
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel.getUser()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,19 +46,26 @@ class AddMessageFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val userId = arguments?.getInt("user_id")
-
         setBottomSheet()
+
+        var userName = ""
+        var userImage = ""
+
+        viewModel.userFromRoom.observe(viewLifecycleOwner){ user ->
+            if(user != null){
+                userName = user.userName!!
+                userImage = user.imageUrl!!
+            }
+        }
 
         binding.createButton.setOnClickListener {
             if (binding.title.text != "" && binding.description.text != "") {
-                val currentDate = DateFormatUtil.getCurrentDate()
-                if (userId != null) {
+                if (userName != "") {
                     viewModel.addNewMessage(
-                        userId,
                         binding.editTextTitle.text.toString(),
+                        userImage,
+                        userName,
                         binding.editTextDescription.text.toString(),
-                        LocalDateTime.parse(currentDate)
                     )
                 }
                 findNavController().popBackStack()

@@ -1,7 +1,10 @@
 package com.imprarce.android.feature_community.utils
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 class DateFormatUtil {
@@ -14,10 +17,9 @@ class DateFormatUtil {
             return outputFormat.format(date)
         }
 
-        fun getCurrentDate(): String {
-            val calendar = Calendar.getInstance()
-            val dateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
-            return dateFormat.format(calendar.time)
+        @RequiresApi(Build.VERSION_CODES.O)
+        fun getCurrentDate(): LocalDateTime {
+            return LocalDateTime.now()
         }
     }
 }

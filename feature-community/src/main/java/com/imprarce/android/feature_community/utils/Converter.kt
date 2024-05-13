@@ -8,6 +8,9 @@ import com.imprarce.android.local.comment.room.CommentDbEntity
 import com.imprarce.android.local.community.CommunityItem
 import com.imprarce.android.local.community.room.CommunityDbEntity
 import com.imprarce.android.local.user.room.UserRepository
+import com.imprarce.android.network.model.comment.Comment
+import com.imprarce.android.network.model.community.CommunityResponse
+import com.imprarce.android.network.model.community.CommunitySend
 import com.imprarce.android.network.repository.user.UserRepositoryNetwork
 
 class Converter (
@@ -34,6 +37,25 @@ class Converter (
         }
     }
 
+    suspend fun convertToCommunityItemListFromNetwork(communityResponse: List<CommunityResponse>): List<CommunityItem> {
+        return communityResponse.map { communityItem ->
+            CommunityItem(
+                id_community = communityItem.idCommunity,
+                id_user = communityItem.idUser,
+                user_name = communityItem.userName,
+                user_image = communityItem.userImage.replace("http://", "https://"),
+                title = communityItem.title,
+                rating = communityItem.rating,
+                view = communityItem.view,
+                create_time = communityItem.createTime.replace("::", ":"),
+                last_change = communityItem.lastChange.replace("::", ":"),
+                has_problem_resolve = communityItem.hasProblemResolve,
+                description = communityItem.description,
+                arrowRatingImageResource = R.drawable.arrow_up_rating
+            )
+        }
+    }
+
     suspend fun convertToCommunityItem(communityDb: CommunityDbEntity): CommunityItem {
         return CommunityItem(
             id_community = communityDb.id_community,
@@ -51,6 +73,23 @@ class Converter (
         )
     }
 
+    suspend fun convertToCommunityItemFromNetwork(communityResponse: CommunityResponse): CommunityItem {
+        return CommunityItem(
+            id_community = communityResponse.idCommunity,
+            id_user = communityResponse.idUser,
+            user_name = communityResponse.userName,
+            user_image = communityResponse.userImage.replace("http://", "https://"),
+            title = communityResponse.title,
+            rating = communityResponse.rating,
+            view = communityResponse.view,
+            create_time = communityResponse.createTime.replace("::", ":"),
+            last_change = communityResponse.lastChange.replace("::", ":"),
+            has_problem_resolve = communityResponse.hasProblemResolve,
+            description = communityResponse.description,
+            arrowRatingImageResource = R.drawable.arrow_up_rating
+        )
+    }
+
     suspend fun convertToCommentsItemList(commentsDbList: List<CommentDbEntity>): List<CommentItem> {
         return commentsDbList.map { commentsDbEntity ->
             CommentItem(
@@ -58,6 +97,17 @@ class Converter (
                 userImage = getUserImage(commentsDbEntity.userId),
                 userName = getUserName(commentsDbEntity.userId),
                 message = commentsDbEntity.message
+            )
+        }
+    }
+
+    suspend fun convertToCommentsItemListNetwork(comment: List<Comment>): List<CommentItem> {
+        return comment.map { comments ->
+            CommentItem(
+                userId = comments.idUser,
+                userImage = comments.userImage.replace("http://", "https://"),
+                userName = comments.userName,
+                message = comments.message
             )
         }
     }

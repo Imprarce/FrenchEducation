@@ -20,6 +20,8 @@ import com.imprarce.android.network.repository.task.TaskNetworkRepository
 import com.imprarce.android.network.repository.task.TaskNetworkRepositoryImpl
 import com.imprarce.android.network.repository.task_completed.TaskCompletedNetworkRepository
 import com.imprarce.android.network.repository.task_completed.TaskCompletedNetworkRepositoryImpl
+import com.imprarce.android.network.repository.video.VideoNetworkRepository
+import com.imprarce.android.network.repository.video.VideoNetworkRepositoryImpl
 import com.imprarce.android.network.utils.Constants.BASE_URL
 import com.imprarce.android.network.utils.SessionManager
 import dagger.Module
@@ -129,5 +131,13 @@ class NetworkModule {
         sessionManager: SessionManager
     ): CommunityNetworkRepository {
         return CommunityNetworkRepositoryImpl(networkApi, sessionManager)
+    }
+
+    @Provides
+    fun provideVideoNetworkRepository(
+        networkApi: NetworkApi,
+        sessionManager: SessionManager
+    ): VideoNetworkRepository {
+        return VideoNetworkRepositoryImpl(networkApi, sessionManager)
     }
 }

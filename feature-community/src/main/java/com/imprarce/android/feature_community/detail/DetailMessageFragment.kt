@@ -35,12 +35,22 @@ class DetailMessageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        var userName = ""
+        var userImage = ""
+
+        mainViewModel.userFromRoom.observe(viewLifecycleOwner){ user ->
+            if(user != null){
+                userName = user.userName!!
+                userImage = user.imageUrl!!
+            }
+        }
+
         val idUser = arguments?.getInt("user_id")
         val idCommunity = arguments?.getInt("id_community")
 
         if(idCommunity != null){
-            mainViewModel.getCommunityItem(idCommunity)
-            mainViewModel.getCommentsList(idCommunity)
+            mainViewModel.getCommunityItemNetwork(idCommunity)
+            mainViewModel.getCommentsListNetwork(idCommunity)
         }
 
         mainViewModel.communityItem.observe(viewLifecycleOwner){ community ->
@@ -70,7 +80,7 @@ class DetailMessageFragment : Fragment() {
 
         binding.sendButton.setOnClickListener {
             if(binding.messageComment.text.isNotEmpty() && idUser != null && idCommunity != null){
-                mainViewModel.insertComment(idUser, idCommunity, binding.messageComment.text.toString(), 0)
+                mainViewModel.insertComment(idCommunity, userImage, userName, binding.messageComment.text.toString(), 0)
             }
         }
     }

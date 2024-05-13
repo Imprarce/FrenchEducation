@@ -3,7 +3,8 @@ package com.imprarce.android.network.api
 import android.net.Uri
 import com.imprarce.android.network.SimpleResponse
 import com.imprarce.android.network.model.comment.Comment
-import com.imprarce.android.network.model.community.Community
+import com.imprarce.android.network.model.community.CommunityResponse
+import com.imprarce.android.network.model.community.CommunitySend
 import com.imprarce.android.network.model.user.PhotoUploadResponse
 import com.imprarce.android.network.model.user.User
 import com.imprarce.android.network.model.user.UserLoginAndReg
@@ -13,6 +14,7 @@ import com.imprarce.android.network.model.module_progress.ModuleProgress
 import com.imprarce.android.network.model.module_tasks.ModuleTasks
 import com.imprarce.android.network.model.task.Task
 import com.imprarce.android.network.model.task_completed.TaskCompleted
+import com.imprarce.android.network.model.video.Video
 import com.imprarce.android.network.utils.Constants.API_VERSION
 import okhttp3.MultipartBody
 import retrofit2.Response
@@ -131,17 +133,18 @@ interface NetworkApi {
 
     // COMMUNITY
 
-    @GET("${API_VERSION}/community/get")
-    suspend fun getCommunities(): Response<List<Community>>
+    @GET("${API_VERSION}/communities/get")
+    suspend fun getCommunities(): Response<List<CommunityResponse>>
 
-//    @GET("${API_VERSION}/community/get")
-//    suspend fun getCommunity(
-//        @Query("id_community") communityId: Int
-//    ): Response<Community>
+    @GET("${API_VERSION}/community/get")
+    suspend fun getCommunityById(
+        @Query("id_community") commentId: Int
+    ): Response<CommunityResponse>
+
 
     @POST("${API_VERSION}/community/create")
     suspend fun createCommunity(
-        @Body community: Community
+        @Body communitySend: CommunitySend
     ): SimpleResponse
 
     @DELETE("${API_VERSION}/community/delete")
@@ -164,5 +167,32 @@ interface NetworkApi {
     @DELETE("${API_VERSION}/comment/delete")
     suspend fun deleteComment(
         @Query("id_comment") commentId: Int
+    ): SimpleResponse
+
+    // VIDEO
+
+    @GET("${API_VERSION}/videos/get")
+    suspend fun getVideos(): Response<List<Video>>
+
+    @GET("${API_VERSION}/video/get")
+    suspend fun getVideoById(
+        @Query("id_video") videoId: Int
+    ): Response<Video>
+
+    @Multipart
+    @POST("v1/video/create")
+    suspend fun createVideo(
+        @Part("videoId") videoId: Int,
+        @Part("userId") userId: Int,
+        @Part("rating") rating: Int,
+        @Part("view") view: Int,
+        @Part("description") description: String,
+        @Part("title") title: String,
+        @Part videoFile: MultipartBody.Part
+    ): SimpleResponse
+
+    @DELETE("${API_VERSION}/video/delete")
+    suspend fun deleteVideo(
+        @Query("id_video") videoId: Int
     ): SimpleResponse
 }

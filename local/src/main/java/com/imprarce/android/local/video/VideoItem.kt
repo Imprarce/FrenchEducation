@@ -9,5 +9,4 @@ data class VideoItem (
      val description: String,
      val title: String,
      val videoFile: String,
-     val imageUrl: Bitmap?
 )

@@ -15,7 +15,11 @@ import com.imprarce.android.local.community.room.CommunityDbEntity
 import com.imprarce.android.local.community.room.CommunityRepository
 import com.imprarce.android.local.user.room.UserDbEntity
 import com.imprarce.android.local.user.room.UserRepository
+import com.imprarce.android.network.ResponseNetwork
+import com.imprarce.android.network.repository.comment.CommentNetworkRepository
+import com.imprarce.android.network.repository.community.CommunityNetworkRepository
 import com.imprarce.android.network.repository.user.UserRepositoryNetwork
+import com.imprarce.android.network.utils.SessionManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
@@ -24,13 +28,16 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val userRepository: UserRepository,
-    private val userNetworkRepository: UserRepositoryNetwork,
     private val communityRepository: CommunityRepository,
-    private val commentRepository: CommentRepository
+    private val commentRepository: CommentRepository,
+    private val userNetworkRepository: UserRepositoryNetwork,
+    private val communityNetworkRepository: CommunityNetworkRepository,
+    private val commentNetworkRepository: CommentNetworkRepository,
+    private val sessionManager: SessionManager
 ) : ViewModel() {
 
-    private val _userFromRoom = MutableLiveData<UserDbEntity>()
-    val userFromRoom: LiveData<UserDbEntity> = _userFromRoom
+    private val _userFromRoom = MutableLiveData<UserDbEntity?>()
+    val userFromRoom: LiveData<UserDbEntity?> = _userFromRoom
 
     private val _communityList = MutableLiveData<List<CommunityItem>>()
     val communityList: LiveData<List<CommunityItem>> = _communityList
@@ -41,17 +48,100 @@ class MainViewModel @Inject constructor(
     private val _commentsList = MutableLiveData<List<CommentItem>>()
     val commentsList: LiveData<List<CommentItem>> = _commentsList
 
+
+    init {
+        getCommunityListNetwork()
+    }
+    fun getUser() = viewModelScope.launch {
+        val email = sessionManager.getCurrentUserEmail() ?: return@launch
+
+        when (val response = userRepository.getUserByEmail(email)) {
+            is ResponseRoom.Success -> {
+                if (response.result != null) {
+                    _userFromRoom.value = response.result
+                    sessionManager.setCurrentUserId(response.result!!.id_user)
+                }
+            }
+            else -> {}
+        }
+    }
     private fun getCommunityListNetwork() {
         viewModelScope.launch {
-            when (val response = communityRepository.getAllCommunities()) {
-                is ResponseRoom.Success -> {
-                    val communityDbList = response.result
-                    _communityList.value = Converter(userRepository, userNetworkRepository).convertToCommunityItemList(communityDbList)
+            when (val response = communityNetworkRepository.getCommunities()) {
+                is ResponseNetwork.Success -> {
+                    val communityNetworkList = response.result
+                    _communityList.value = Converter(userRepository, userNetworkRepository).convertToCommunityItemListFromNetwork(communityNetworkList)
                 }
-                is ResponseRoom.Failure -> {
+                is ResponseNetwork.Failure -> {
                     Log.e("MainViewModel", "Failed to load communities: ${response.exception}")
                 }
-                is ResponseRoom.Loading -> {
+                is ResponseNetwork.Loading -> {
+
+                }
+            }
+        }
+    }
+
+    fun getCommunityItemNetwork(idCommunity: Int) {
+        viewModelScope.launch {
+            when (val response = communityNetworkRepository.getCommunityById(idCommunity)) {
+                is ResponseNetwork.Success -> {
+                    val communityNetwork = response.result
+                    if(communityNetwork != null){
+                        _communityItem.value = Converter(userRepository, userNetworkRepository).convertToCommunityItemFromNetwork(communityNetwork)
+                    }
+                }
+                is ResponseNetwork.Failure -> {
+                    Log.e("MainViewModel", "Failed to load communities: ${response.exception}")
+                }
+                is ResponseNetwork.Loading -> {
+
+                }
+            }
+        }
+    }
+
+    fun addNewMessage(title: String, userImage: String, userName: String, description: String){
+        viewModelScope.launch {
+            when (val response = communityNetworkRepository.createCommunity(title, userImage, userName, description)){
+                is ResponseNetwork.Success -> {
+                    getCommunityListNetwork()
+                }
+                is ResponseNetwork.Failure -> {
+                    Log.e("MainViewModel", "Failed to create community: ${response.exception}")
+                }
+                is ResponseNetwork.Loading -> {
+
+                }
+            }
+        }
+    }
+
+    fun insertComment(communityId: Int, userImage: String, userName: String,  message: String, rating: Int) {
+        viewModelScope.launch {
+            when (val response = commentNetworkRepository.createComment(communityId, userImage, userName, message, rating)) {
+                is ResponseNetwork.Success -> {
+                    getCommentsListNetwork(communityId)
+                }
+                is ResponseNetwork.Failure -> {
+                    Log.e("MainViewModel", "Failed to insert comment: ${response.exception}")
+                }
+                else -> {}
+            }
+        }
+    }
+
+    fun getCommentsListNetwork(communityId: Int){
+        viewModelScope.launch {
+            when (val response = commentNetworkRepository.getComments(communityId)) {
+                is ResponseNetwork.Success -> {
+                    val commentsNetworkList = response.result
+                    _commentsList.value = Converter(userRepository, userNetworkRepository).convertToCommentsItemListNetwork(commentsNetworkList)
+                }
+                is ResponseNetwork.Failure -> {
+                    Log.e("MainViewModel", "Failed to load communities: ${response.exception}")
+                }
+                is ResponseNetwork.Loading -> {
 
                 }
             }
@@ -94,11 +184,7 @@ class MainViewModel @Inject constructor(
 
 
 
-    fun addNewMessage(idUser: Int, title: String, description: String, currentTime: LocalDateTime){
-        viewModelScope.launch {
 
-        }
-    }
 
     fun deleteCommunity(communityItem: CommunityItem){
         val communityDbEntity = CommunityDbEntity(
@@ -124,26 +210,6 @@ class MainViewModel @Inject constructor(
                 is ResponseRoom.Loading -> {
 
                 }
-            }
-        }
-    }
-
-    fun insertComment(idUser: Int, communityId: Int, message: String, rating: Int) {
-        val comment = CommentDbEntity(
-            userId = idUser,
-            communityId = communityId,
-            message = message,
-            rating = rating
-        )
-        viewModelScope.launch {
-            when (val response = commentRepository.insertComment(comment)) {
-                is ResponseRoom.Success -> {
-                    getCommentsList(communityId)
-                }
-                is ResponseRoom.Failure -> {
-                    Log.e("MainViewModel", "Failed to insert comment: ${response.exception}")
-                }
-                else -> {}
             }
         }
     }

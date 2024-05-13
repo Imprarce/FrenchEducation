@@ -6,6 +6,6 @@ import com.imprarce.android.network.model.task.Task
 
 interface CommentNetworkRepository {
     suspend fun getComments(communityId: Int): ResponseNetwork<List<Comment>>
-    suspend fun createComment(communityId: Int, message: String, rating: Int): ResponseNetwork<Unit>
+    suspend fun createComment(communityId: Int, userImage: String, userName: String, message: String, rating: Int): ResponseNetwork<Unit>
     suspend fun deleteComment(commentId: Int): ResponseNetwork<Unit>
 }

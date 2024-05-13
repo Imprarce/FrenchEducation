@@ -34,12 +34,12 @@ class VideoAdapter(
         holder.viewNumberTextView.text = currentItem.view.toString()
         Glide.with(holder.itemView.context)
             .asBitmap()
-            .load(currentItem.videoFile)
+            .load(currentItem.videoFile.replace("http://", "https://"))
             .placeholder(R.drawable.image_plug_2)
             .into(holder.videoView)
 
         holder.videoView.setOnClickListener {
-            videoClickListener?.onVideoClicked(Uri.parse(currentItem.videoFile), holder.videoView)
+            videoClickListener?.onVideoClicked(Uri.parse(currentItem.videoFile.replace("http://", "https://")), holder.videoView)
         }
 
     }

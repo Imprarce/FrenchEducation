@@ -28,7 +28,7 @@ class CommentNetworkRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun createComment(communityId: Int, message: String, rating: Int): ResponseNetwork<Unit> {
+    override suspend fun createComment(communityId: Int, userImage: String, userName: String, message: String, rating: Int): ResponseNetwork<Unit> {
         return try {
             val userId = sessionManager.getCurrentUserId()
 
@@ -36,6 +36,8 @@ class CommentNetworkRepositoryImpl @Inject constructor(
                 idComment = 0,
                 idUser = userId!!,
                 idCommunity = communityId,
+                userImage = userImage,
+                userName = userName,
                 message = message,
                 rating = rating
             )
